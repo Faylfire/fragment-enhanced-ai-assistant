@@ -6,6 +6,39 @@ The project is using React with Typescript and Vite along with shadcn and tailwi
 
 
 
+Initial File Structure:
+
+src/
+├── components/
+│   ├── LeftPanel/
+│   │   ├── Logo.js
+│   │   ├── NavBar.js
+│   │   ├── TopicList.js
+│   │   ├── TopicEntry.js
+│   │   └── LeftPanel.js
+│   ├── ChatArea/
+│   │   ├── ChatTabs.js        // New component
+│   │   ├── ChatInput.js
+│   │   ├── ChatMessages.js
+│   │   └── ChatArea.js
+│   └── lib/
+├── contexts/
+│   ├── TopicContext.js
+│   └── ChatContext.js         // New context for managing chat tabs
+├── hooks/
+│   ├── useTopics.js
+│   └── useChats.js            // New hook for managing chats
+├── services/
+│   └── api.js
+├── index.css
+├── App.js
+└── utils/
+    └── helpers.js
+
+
+Issues and Bugs:
+7/30/2024 - Using Tailwind "tw-" prefix introduces issues with shadcn, removal restores expected behavior
+
 ## React + TypeScript + Vite
 
 The section below are details in regards to the templates used to provide a minimal setup to get React working in Vite with HMR and some ESLint rules.
