@@ -8,7 +8,7 @@ import { ChatList, ChatMessage, ChatEntry } from '@/types/types';
 
 function ChatTabs({chatList, ...props}: {chatList:ChatList}) {
   return (
-    <Tabs defaultValue="collection" className="w-full">
+    <Tabs defaultValue={chatList[0].id} className="w-full">
          <TabsList >
             {chatList.map((chat: ChatEntry)=>{
                 return <TabsTrigger key={chat.id} value={chat.id}>{chat.chatTitle}</TabsTrigger>

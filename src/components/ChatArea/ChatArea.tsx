@@ -26,7 +26,30 @@ const chatList: ChatList = [
       { role: 'user', content: "My computer won't turn on." },
       { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure it's plugged in...2" },
     ]
+  },
+   {
+    id: '3',
+    chatTitle: 'Tech Support2',
+    chatContent: [
+      { role: 'system', content: 'You are a tech support assistant.' },
+      { role: 'user', content: "My computer won't turn on." },
+      { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart" },
+    ]
+  },
+  {
+    id: '4',
+    chatTitle: 'Tech Support Again',
+    chatContent: [
+      { role: 'system', content: 'You are a tech support assistant.' },
+      { role: 'user', content: "My computer won't turn on." },
+      { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart" },
+      { role: 'user', content: "My computer won't turn on." },
+      { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart1" },
+      { role: 'user', content: "My computer won't turn on." },
+      { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart2" },
+    ]
   }
+
 ];
 
 const newChat: ChatEntry =   {
@@ -36,6 +59,10 @@ const newChat: ChatEntry =   {
       { role: 'system', content: 'You are a tech support assistant.' },
       { role: 'user', content: "My computer won't turn on." },
       { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart" },
+      { role: 'user', content: "My computer won't turn on." },
+      { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart1" },
+      { role: 'user', content: "My computer won't turn on." },
+      { role: 'assistant', content: "Let's try some troubleshooting steps. First, make sure to restart2" },
     ]
   }
 

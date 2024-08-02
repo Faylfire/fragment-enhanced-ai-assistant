@@ -29,6 +29,8 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --highlight: 210 40% 88%;
+    --highlight-foreground: 222.2 84% 14.9%;
   }
 
   .dark {
@@ -56,6 +58,8 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --highlight: 222.2 84% 14.9%;
+    --highlight-foreground: 210 40% 88%;
   }
 }
 
