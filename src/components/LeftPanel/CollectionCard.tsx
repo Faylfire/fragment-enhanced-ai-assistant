@@ -11,35 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Additions, Entry } from '@/types/types';
 
-interface Addition {
-  sceneOrder: number;
-  content: string;
-}
-
-// Define the main entry type
-interface Entry {
-  // The type of collection the entry belongs to
-  collectionType: 'character' | 'location' | string;
-
-  // The title or name of the entry
-  title: string;
-
-  // Tags or labels used for filtering
-  tags: string[];
-
-  // Aliases (array of names)
-  aliases: string[];
-
-  // Description of the entry
-  description: string;
-
-  // Notes about the entry
-  notes: string;
-
-  // Array of additional content
-  additions: Addition[];
-}
 
 const characterList: Entry[] = [{
     collectionType: 'character',
@@ -94,8 +67,8 @@ const characterList: Entry[] = [{
 const locationList: Entry[] = [{
     collectionType: 'location',
     title: 'Whispering Woods',
-    tags: ['WW','forest', 'mysterious', 'central'],
-    aliases: ['The Enchanted Forest', 'Murmur Grove'],
+    tags: ['forest', 'mysterious', 'central'],
+    aliases: ['WW','The Enchanted Forest', 'Murmur Grove'],
     description: 'A dense, misty forest known for its eerie whispers and shifting paths.',
     notes: 'Key location for several plot twists and character revelations.',
     additions: [
@@ -154,8 +127,8 @@ const locationList: Entry[] = [{
   {
     collectionType: 'location',
     title: 'Chrono Citadel',
-    tags: ['Ch','temporal', 'ancient', 'enigmatic'],
-    aliases: ['The Timeless Fortress', "Eternity's Bastion"],
+    tags: ['temporal', 'ancient', 'enigmatic'],
+    aliases: ['Ch','The Timeless Fortress', "Eternity's Bastion"],
     description: 'A massive structure where time flows differently in each room and corridor.',
     notes: 'Use for time-bending puzzles and encounters with characters from different eras.',
     additions: [
