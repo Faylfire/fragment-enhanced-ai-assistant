@@ -153,18 +153,17 @@ const locationList: Entry[] = [{
 
 export default function CollectionCard(){
 
-
-
     return(
+      <>
          <Card >
-            <CardHeader className="p-4">
+            <CardHeader className="p-2">
               <CardTitle>Characters</CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-4 p-4">
+            <CardContent className="grid gap-4 p-2">
 
-              {characterList.map((character:Entry)=>{
+              {characterList.map((character:Entry, index:number)=>{
                 return (
-                  <div className="flex items-center gap-4 hover:bg-highlight p-2 rounded-lg">
+                  <div key={`${character.collectionType}-${index}`}className="flex items-center gap-4 hover:bg-highlight p-2 rounded-lg">
                     <Avatar className="hidden h-9 w-9 sm:flex">
                       <AvatarImage src="/avatars/01.png" alt="Avatar" />
                       <AvatarFallback>{character.aliases[0]}</AvatarFallback>
@@ -182,14 +181,16 @@ export default function CollectionCard(){
                 )
               })} 
             </CardContent>
-            <CardHeader className="p-4">
+            </Card>
+            <Card>
+            <CardHeader className="p-2">
               <CardTitle>Locations</CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-4 p-4">
+            <CardContent className="grid gap-4 p-2">
 
-              {locationList.map((character:Entry)=>{
+              {locationList.map((character:Entry, index:number)=>{
                 return (
-                  <div className="flex items-center gap-4 hover:bg-highlight p-2 rounded-lg">
+                  <div key={`${character.collectionType}-${index}`} className="flex items-center gap-4 hover:bg-highlight p-2 rounded-lg">
                     <Avatar className="hidden h-9 w-9 sm:flex">
                       <AvatarImage src="/avatars/01.png" alt="Avatar" />
                       <AvatarFallback>{character.aliases[0]}</AvatarFallback>
@@ -208,5 +209,6 @@ export default function CollectionCard(){
               })} 
             </CardContent>
           </Card>
+        </>
     )
 }
