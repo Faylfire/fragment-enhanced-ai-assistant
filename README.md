@@ -2,9 +2,13 @@
 
 This is a simple implementation of a concept for 'fragment' or topical entry enhanced chat with history.
 
-The project is using React with Typescript and Vite along with shadcn and tailwind.
+The project is using React with Typescript and Vite along with Shadcn and tailwind.
 
-
+Features:
+- Integration with LMStudio API for AI (openai api)
+- Pull Collection Entries/Fragaments into AI prompt for more detailed and relevant queries
+- Allow for 'Asides' conversations that deviate from the original purpose but still relevant and pulled 'aside' as not to pollute the main conversation
+- A catalog of past chats/conversations
 
 Initial File Structure:
 
