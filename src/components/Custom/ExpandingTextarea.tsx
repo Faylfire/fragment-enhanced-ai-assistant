@@ -29,7 +29,7 @@ export const ExpandingTextarea: React.FC<ExpandingTextareaProps> = ({
     const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
-      // Reset height to auto to get the correct scrollHeight
+      // Reset height to single row
       textarea.style.height = `${minRows * 24 + 16}px`;
       console.log("Adjusting textarea height")
       // Calculate the new height
@@ -58,7 +58,7 @@ export const ExpandingTextarea: React.FC<ExpandingTextareaProps> = ({
       value={value}
       onChange={handleChange}
       rows={rows}
-      className={cn("resize-none overflow-y p-2 border rounded text-background bg-foreground", className)}
+      className={cn("resize-none overflow-y w-full p-2 border rounded font-semibold text-background bg-muted-foreground placeholder-background/70", className)}
     />
   );
 }

@@ -112,9 +112,9 @@ function ChatArea() {
         <div className="h-full overflow-y-auto">
           <ChatTabs chatList={chatList} />
         </div>
-        <div className="absolute bottom-10 w-[80%] bg-black/95 text-background rounded-3xl p-4 flex justify-around gap-4 left-1/2 -translate-x-1/2">
-          <ExpandingTextarea className="rounded-2xl w-[80%]" value={inputText} onChange={handleInputChange} placeholder="How can I help you?" />
-          <Button type="submit" onClick={()=>console.log({inputText})} >Add Chat</Button>
+        <div className="absolute bottom-10 w-[80%] bg-black/95 text-background rounded-3xl p-2 flex justify-around gap-4 left-1/2 -translate-x-1/2">
+          <ExpandingTextarea className="rounded-2xl w-full" value={inputText} onChange={handleInputChange} placeholder="How can I help you?" />
+          <Button className="rounded-2xl" type="submit" onClick={()=>console.log({inputText})} >Add Chat</Button>
         </div>
 
     </div>
