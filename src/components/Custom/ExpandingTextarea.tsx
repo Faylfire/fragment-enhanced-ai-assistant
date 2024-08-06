@@ -58,7 +58,7 @@ export const ExpandingTextarea: React.FC<ExpandingTextareaProps> = ({
       value={value}
       onChange={handleChange}
       rows={rows}
-      className={cn("resize-none overflow-y w-full p-2 border rounded font-semibold text-background bg-muted-foreground placeholder-background/70", className)}
+      className={cn("resize-none overflow-y w-full p-2 border rounded font-semibold text-background bg-muted-foreground placeholder-background/60", className)}
     />
   );
 }

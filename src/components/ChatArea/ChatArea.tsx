@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ChatList, ChatEntry} from "@/types/types";
 import { Input } from "@/components/ui/input"
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea"
+import getFirebase from '@/services/firebaseAPI';
 
 
 
@@ -99,7 +100,6 @@ const newChat: ChatEntry =   {
   }
 
 
-
 function ChatArea() {
    const [inputText, setInputText] = useState<string>(''); 
 
@@ -114,7 +114,13 @@ function ChatArea() {
         </div>
         <div className="absolute bottom-10 w-[80%] bg-black/95 text-background rounded-3xl p-2 flex justify-around gap-4 left-1/2 -translate-x-1/2">
           <ExpandingTextarea className="rounded-2xl w-full" value={inputText} onChange={handleInputChange} placeholder="How can I help you?" />
-          <Button className="rounded-2xl" type="submit" onClick={()=>console.log({inputText})} >Add Chat</Button>
+          <Button className="rounded-2xl" 
+          type="submit" 
+          onClick={()=>{
+            getFirebase('user','pass')
+            console.log({inputText})
+            }}>
+              Add Chat</Button>
         </div>
 
     </div>
