@@ -109,7 +109,7 @@ function ChatArea() {
 
   return (
     <div className="chat-area relative h-screen">
-        <div className="h-full overflow-y-auto">
+        <div className="h-screen">
           <ChatTabs chatList={chatList} />
         </div>
         <div className="absolute bottom-10 w-[80%] bg-black/95 text-background rounded-3xl p-2 flex justify-around gap-4 left-1/2 -translate-x-1/2">

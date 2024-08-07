@@ -150,6 +150,14 @@ const locationList: Entry[] = [{
   }
 ]
 
+const collection = {}
+
+
+/* Obtain sorted version of a set for iteration
+const wordSet = new Set(['banana', 'apple', 'cherry', 'date']);
+const sortedWords = [...wordSet].sort();
+
+*/
 
 export default function CollectionCard(){
 
