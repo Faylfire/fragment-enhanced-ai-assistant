@@ -4,11 +4,18 @@ This is a simple implementation of a concept for 'fragment' or topical entry enh
 
 The project is using React with Typescript and Vite along with Shadcn and tailwind.
 
+
+Todo:
+- UML sequence diagram for the basic use cases: Login/Auth(later), Add/Remove/Update Collection Entries, Update Chat Prompts and Responses.
+- Implement backend db connection according to the defined UML sequence diagrams
+- 
+
 Features:
 - Integration with LMStudio API for AI (openai api)
 - Pull Collection Entries/Fragaments into AI prompt for more detailed and relevant queries
 - Allow for 'Asides' conversations that deviate from the original purpose but still relevant and pulled 'aside' as not to pollute the main conversation
 - A catalog of past chats/conversations
+- Additional features for enhanced workflows such as research and summary and distillation into collection Entries
 
 Initial File Structure:
 

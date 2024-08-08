@@ -8,6 +8,7 @@ import { ScrollArea , ScrollBar} from "@/components/ui/scroll-area"
 
 
 function ChatTabs({chatList, ...props}: {chatList:ChatList}) {
+
   return (
     <Tabs defaultValue={chatList[0].id} className="w-full h-screen flex flex-col">
          <TabsList className="sticky top-0 z-10 items-center justify-start rounded-none">
