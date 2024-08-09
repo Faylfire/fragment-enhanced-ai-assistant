@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ChatList, ChatEntry} from "@/types/types";
 import { Input } from "@/components/ui/input"
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea"
-import getFirebase from '@/services/firebaseAPI';
+import { addCollectionEntry } from '@/services/dataAccess';
 
 
 
@@ -117,7 +117,7 @@ function ChatArea() {
           <Button className="rounded-2xl" 
           type="submit" 
           onClick={()=>{
-            getFirebase('user','pass')
+            addCollectionEntry()
             console.log({inputText})
             }}>
               Add Chat</Button>

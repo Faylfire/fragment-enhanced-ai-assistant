@@ -1,5 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+import { initializeApp } from 'firebase/app'
+import { getDatabase } from 'firebase/database'
 
 
 // Storing the database URL in localStorage
@@ -32,7 +32,7 @@ export default function getFirebase(username?:string, password?:string){
     }
 
 
-    /*initialize Connection to Firebase
+    //initialize Connection to Firebase
     const firebaseConfig = {
         databaseURL: firebaseURL,
     }   
@@ -41,5 +41,5 @@ export default function getFirebase(username?:string, password?:string){
     const database = getDatabase(app)
 
     console.log(firebaseConfig, database)
-    */
+    return database
 }
