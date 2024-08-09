@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 
 document.body.classList.add('dark')
+document.body.classList.add('no-scroll')
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

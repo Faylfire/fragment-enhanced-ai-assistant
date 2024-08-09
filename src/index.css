@@ -61,6 +61,13 @@
     --highlight: 222.2 84% 14.9%;
     --highlight-foreground: 210 40% 88%;
   }
+
+  .no-scroll {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+  }
 }
 
 @layer base {
