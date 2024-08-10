@@ -15,7 +15,9 @@ function Header() {
         </TabsList>
         <TabsContent className='h-full' value="collections">
           <ScrollArea className="h-screen rounded-md border">
-            <CollectionAccordion />
+            <div className="pb-[150px]">
+              <CollectionAccordion />
+            </div>
           <ScrollBar orientation="vertical" />
           </ScrollArea>
         </TabsContent>

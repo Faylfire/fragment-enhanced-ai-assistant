@@ -5,7 +5,7 @@ import {React, useState} from 'react';
 import ChatTabs from './ChatTabs';
 import { Button } from "@/components/ui/button"
 import { ChatList, ChatEntry} from "@/types/types";
-import { Input } from "@/components/ui/input"
+//import { Input } from "@/components/ui/input"
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea"
 import { addCollectionEntry } from '@/services/dataAccess';
 

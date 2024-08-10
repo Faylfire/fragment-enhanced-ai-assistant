@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Entry } from '@/types/types';
+import EntryDialogOpener from "./EntryDialogOpener";
+
 
 const characterList: Entry[] = [{
     collectionType: 'character',
@@ -156,17 +158,17 @@ export default function CollectionAccordion(){
       <>
         <Accordion type="multiple" defaultValue={["character", "location", "custom"]} className="w-full">
             <AccordionItem value="character">
-                <div className='flex'>
-                <div className='flex flex-grow items-center justify-between px-4'>
+                <div className='flex px-4'>
+                <div className='flex flex-grow items-center justify-between pr-2'>
                     <div className='font-bold'>{`Character (${characterList.length})`}</div>
-                    <Button onClick={()=>console.log('clicked add entry')} aria-label="Add new item" className='bg-background hover:bg-background hover:text-muted-foreground text-foreground font-bold text-2xl p-0'>+</Button>
+                    <EntryDialogOpener />
                 </div>
                 <AccordionTrigger className='flex-none'></AccordionTrigger>
                 </div>
                 <AccordionContent>
                     {characterList.map((character:Entry, index:number)=>{
                         return (
-                        <div key={`${character.collectionType}-${index}`}className="flex items-center gap-4 hover:bg-highlight p-2 rounded-lg">
+                        <div key={`${character.collectionType}-${index}`}className="flex items-center gap-4 hover:bg-highlight px-4 py-2 rounded-lg">
                             <Avatar className="hidden h-9 w-9 sm:flex">
                             <AvatarImage src="/avatars/01.png" alt="Avatar" />
                             <AvatarFallback>{character.aliases[0]}</AvatarFallback>
@@ -186,8 +188,8 @@ export default function CollectionAccordion(){
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="location">
-                <div className='flex'>
-                <div className='flex flex-grow items-center justify-between px-4'>
+                <div className='flex px-4'>
+                <div className='flex flex-grow items-center justify-between pr-2'>
                     <div className='font-bold'>{`Location (${locationList.length})`}</div>
                     <Button onClick={()=>console.log('clicked add entry')} aria-label="Add new item" className='bg-background hover:bg-background hover:text-muted-foreground text-foreground font-bold text-2xl p-0'>+</Button>
                 </div>
@@ -196,7 +198,7 @@ export default function CollectionAccordion(){
                 <AccordionContent>
                     {locationList.map((character:Entry, index:number)=>{
                         return (
-                        <div key={`${character.collectionType}-${index}`} className="flex items-center gap-4 hover:bg-highlight p-2 rounded-lg">
+                        <div key={`${character.collectionType}-${index}`} className="flex items-center gap-4 hover:bg-highlight px-4 py-2 rounded-lg">
                             <Avatar className="hidden h-9 w-9 sm:flex">
                             <AvatarImage src="/avatars/01.png" alt="Avatar" />
                             <AvatarFallback>{character.aliases[0]}</AvatarFallback>
@@ -216,8 +218,8 @@ export default function CollectionAccordion(){
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="custom">
-                <div className='flex'>
-                <div className='flex flex-grow items-center justify-between px-4'>
+                <div className='flex px-4'>
+                <div className='flex flex-grow items-center justify-between pr-2'>
                     <div className='font-bold'>{`Custom (1)`}</div>
                     <Button onClick={()=>console.log('clicked add entry')} aria-label="Add new item" className='bg-background hover:bg-background hover:text-muted-foreground text-foreground font-bold text-2xl p-0'>+</Button>
                 </div>

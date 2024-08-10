@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Additions, Entry } from '@/types/types';
+import { Entry } from '@/types/types';
 
 
 const characterList: Entry[] = [{
@@ -150,8 +150,15 @@ const locationList: Entry[] = [{
   }
 ]
 
-const collection = {}
+/*
+const types = new Set(['characters', 'location'])
 
+const collection = {types, 
+  topics:{
+    characters:,
+    location:,
+  }
+}*/
 
 /* Obtain sorted version of a set for iteration
 const wordSet = new Set(['banana', 'apple', 'cherry', 'date']);

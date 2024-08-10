@@ -49,6 +49,19 @@ src/
 
 Issues and Bugs:
 7/30/2024 - Using Tailwind "tw-" prefix introduces issues with shadcn, removal restores expected behavior
+8/9/2024 - Scrolling/Panel dynamic length caused visual issues, solved with .no-scroll on the application body, all scrolling will be internal to the elements of the application.
+
+
+Components to be used:
+div contenteditable
+Hover Card
+Skeleton
+toast
+tooltip
+
+Components Added:
+Accordion
+
 
 ## React + TypeScript + Vite
 
