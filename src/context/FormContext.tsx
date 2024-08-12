@@ -22,9 +22,17 @@ export const FormProvider = ({ children }) => {
     },
   }); //Type Entrys
 
-  const [entries, setEntries] = useState([]); //type Entry[]
+  const [entries, setEntries] = useState([]); //type EntryPlusID[]
 
   const [selectedEntry, setSelectedEntry] = useState({}); //type Entry
+  const [typeList, setTypeList] = useState([
+    "character",
+    "location",
+    "lore",
+    "guidelines",
+    "tropes",
+    "other",
+  ]); //type string
 
   const updateEntryData = async (updatedEntry: Entry) => {
     await updateEntry(updatedEntry);
@@ -51,23 +59,47 @@ export const FormProvider = ({ children }) => {
   },
 ];
 */
-
+  //Subscribing to onValue change for Collection entries
   useEffect(() => {
     const handleContent = (snapshot: any) => {
       console.log("onvalue called");
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val());
+        const dataEntries: EntryPlusID[] = [];
         console.log(data);
         for (let item of data) {
           console.log(item[0]);
           console.log(item[1]);
+          dataEntries.push({ id: item[0], content: item[1].content });
         }
+        console.log("dataEntries: ", dataEntries);
+        setEntries(dataEntries);
       }
     };
 
     onValue(contentRef, handleContent);
 
     return () => off(contentRef, "value", handleContent);
+  }, []);
+
+  //Subscribing to onValue changes to typeList
+  useEffect(() => {
+    const handleTypeList = (snapshot: any) => {
+      console.log("typelist onvalue called");
+      if (snapshot.exists()) {
+        const data = Object.entries(snapshot.val());
+        const types = [];
+        console.log(data);
+        for (let item of data) {
+          types.push(item[1]);
+        }
+        setTypeList(types);
+      }
+    };
+
+    onValue(typeListRef, handleTypeList);
+
+    return () => off(typeListRef, "value", handleTypeList);
   }, []);
 
   //Add Entry Method, Calls addEntry from DataAccess in services to push to Firebase/database
@@ -84,7 +116,9 @@ export const FormProvider = ({ children }) => {
     <FormContext.Provider
       value={{
         entry,
+        entries,
         selectedEntry,
+        typeList,
         setSelectedEntry,
         updateEntryData,
         addEntryData,

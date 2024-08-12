@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -7,9 +8,11 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Entry } from "@/types/types";
+import { Entry, EntryPlusID } from "@/types/types";
 import EntryDialogOpener from "./EntryDialogOpener";
-import { FormProvider } from "@/context/FormContext";
+import { useFormContext } from "@/context/FormContext";
+import { iconMap } from "@/lib/iconMap";
+import { capitalizeFirstLetter, getFirstSentence } from "@/lib/utils";
 
 const characterList: Entry[] = [
   {
@@ -211,110 +214,80 @@ const locationList: Entry[] = [
 ];
 
 export default function CollectionAccordion() {
+  const { entries, typeList } = useFormContext();
+  let charList: EntryPlusID[] = [];
+
+  console.log("in Accordion--------");
+  useEffect(() => {
+    console.log("entries changed: ", entries);
+  }, [entries]);
+
+  function getEntriesFromType(type) {
+    const filteredEntries: EntryPlusID[] = entries.filter((entry) =>
+      entry ? entry.content.type === type : false
+    );
+    console.log(filteredEntries);
+    return filteredEntries;
+  }
+
   return (
-    <FormProvider>
-      <Accordion
-        type="multiple"
-        defaultValue={["character", "location", "custom"]}
-        className="w-full"
-      >
-        <AccordionItem value="character">
-          <div className="flex px-4">
-            <div className="flex flex-grow items-center justify-between pr-2">
-              <div className="font-bold">{`Character (${characterList.length})`}</div>
-              <EntryDialogOpener />
-            </div>
-            <AccordionTrigger className="flex-none"></AccordionTrigger>
-          </div>
-          <AccordionContent>
-            {characterList.map((character: Entry, index: number) => {
-              return (
-                <div
-                  key={`${character.collectionType}-${index}`}
-                  className="flex items-center gap-4 hover:bg-highlight px-4 py-2 rounded-lg"
-                >
-                  <Avatar className="hidden h-9 w-9 sm:flex">
-                    <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                    <AvatarFallback>{character.aliases[0]}</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-sm font-medium leading-none">
-                      {character.title}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {character.description}
-                    </p>
-                  </div>
-                  <div className="ml-auto font-sm">
-                    {character.tags[0] || character.collectionType}
-                  </div>
+    <>
+      <Accordion type="multiple" defaultValue={typeList} className="w-full">
+        {typeList.map((type) => {
+          const entriesOfType = getEntriesFromType(type);
+          return (
+            <AccordionItem value={type} key={type}>
+              <div className="flex px-4 bg-primary-foreground">
+                <div className="flex flex-grow items-center justify-between pr-2">
+                  <div className="font-bold">{`${capitalizeFirstLetter(
+                    type
+                  )} (${entriesOfType.length})`}</div>
+                  <EntryDialogOpener className="bg-primary-foreground" />
                 </div>
-              );
-            })}
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="location">
-          <div className="flex px-4">
-            <div className="flex flex-grow items-center justify-between pr-2">
-              <div className="font-bold">{`Location (${locationList.length})`}</div>
-              <Button
-                onClick={() => console.log("clicked add entry")}
-                aria-label="Add new item"
-                className="bg-background hover:bg-background hover:text-muted-foreground text-foreground font-bold text-2xl p-0"
-              >
-                +
-              </Button>
-            </div>
-            <AccordionTrigger className="flex-none"></AccordionTrigger>
-          </div>
-          <AccordionContent>
-            {locationList.map((character: Entry, index: number) => {
-              return (
-                <div
-                  key={`${character.collectionType}-${index}`}
-                  className="flex items-center gap-4 hover:bg-highlight px-4 py-2 rounded-lg"
-                >
-                  <Avatar className="hidden h-9 w-9 sm:flex">
-                    <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                    <AvatarFallback>{character.aliases[0]}</AvatarFallback>
-                  </Avatar>
-                  <div className="grid gap-1">
-                    <p className="text-sm font-medium leading-none">
-                      {character.title}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {character.description}
-                    </p>
-                  </div>
-                  <div className="ml-auto font-sm">
-                    {character.tags[0] || character.collectionType}
-                  </div>
-                </div>
-              );
-            })}
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="custom">
-          <div className="flex px-4">
-            <div className="flex flex-grow items-center justify-between pr-2">
-              <div className="font-bold">{`Custom (1)`}</div>
-              <Button
-                onClick={() => console.log("clicked add entry")}
-                aria-label="Add new item"
-                className="bg-background hover:bg-background hover:text-muted-foreground text-foreground font-bold text-2xl p-0"
-              >
-                +
-              </Button>
-            </div>
-            <AccordionTrigger className="flex-none"></AccordionTrigger>
-          </div>
-          <AccordionContent>
-            This is where custom items will be shown, each custom item will have
-            their own accordion content such as tropes, general, guidelines,
-            story structure, etc.
-          </AccordionContent>
-        </AccordionItem>
+                <AccordionTrigger className="flex-none"></AccordionTrigger>
+              </div>
+              <AccordionContent className="p-0">
+                {entriesOfType.map((entry: Entry, index: number) => {
+                  const IconComponent = iconMap[type] || Triangle;
+                  const entryContent = entry.content;
+                  return (
+                    <div
+                      key={entry.id}
+                      id={entry.id}
+                      className="flex items-center gap-4 hover:bg-highlight px-4 py-2 m-[1px] rounded-lg"
+                    >
+                      <Avatar className="hidden h-9 w-9 sm:flex">
+                        <AvatarImage
+                          src={
+                            entryContent.avatar
+                              ? entryContent.avatar
+                              : "/avatars/01.png"
+                          }
+                          alt="Avatar"
+                        />
+                        <AvatarFallback>
+                          <IconComponent className="size-5" />
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="grid gap-1">
+                        <p className="text-sm font-medium leading-none">
+                          {entryContent.title}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {getFirstSentence(entryContent.description)}
+                        </p>
+                      </div>
+                      <div className="ml-auto font-sm">
+                        {entryContent.tags[0] || entryContent.collectionType}
+                      </div>
+                    </div>
+                  );
+                })}
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
-    </FormProvider>
+    </>
   );
 }

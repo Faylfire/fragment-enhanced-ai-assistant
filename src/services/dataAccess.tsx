@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { ref, push, onValue, remove, update, set } from "firebase/database";
-import { database } from "./firebaseAPI.js";
+import { database } from "@/services/firebaseAPI";
 import { Entry, EntryPlusID } from "@/types/types";
 
 //const database = getFirebase("user", "pass");
@@ -77,6 +77,10 @@ const sampleCollection = {
 */
 
 export function addCollectionEntry() {
+  console.log("addCollectionEntry called this function is empty");
+}
+
+export function addTypeList() {
   //This section may be refactored into a Context.tsx file
   const wordSet = new Set([
     "character",
@@ -86,12 +90,20 @@ export function addCollectionEntry() {
     "tropes",
     "other",
   ]);
-  const sortedTypeList = [...wordSet].sort();
+  //const sortedTypeList = [...wordSet].sort();
+  const orderedTypeList = [
+    "character",
+    "location",
+    "lore",
+    "guidelines",
+    "tropes",
+    "other",
+  ];
   //-------------------------------------------------------
 
-  set(typeListRef, sortedTypeList);
+  set(typeListRef, orderedTypeList);
 
-  //For testing purposes
+  //NOTE: For testing purposes remove after development
   console.log("add types completed");
   onValue(typeListRef, (snapshot) => {
     if (snapshot.exists()) {
@@ -592,8 +604,8 @@ export function updateEntry(entry) {
 }
 
 export function addEntry(entry) {
+  //NOTE: Cleanup console.log after development phase
   console.log("addEntry triggered in dataAccess");
   console.log("Entry Details: ", entry);
-  push(contentRef, { entry: entry });
-  //TODO: Implement createEntry with firebase push()
+  push(contentRef, { content: entry });
 }

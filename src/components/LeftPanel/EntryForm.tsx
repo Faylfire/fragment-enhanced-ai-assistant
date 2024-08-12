@@ -1,28 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  Bird,
-  Book,
-  BookOpen,
-  Bot,
-  MapPin,
-  Code2,
-  CornerDownLeft,
-  LifeBuoy,
-  Mic,
-  Paperclip,
-  Rabbit,
-  Settings,
-  Settings2,
-  Share,
-  SquareTerminal,
-  SquareUser,
-  Triangle,
-  Turtle,
-  CircleUserRound,
-  MessageCircleWarning,
-  Ruler,
-  FolderClosed,
-} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +26,8 @@ import {
 } from "@/components/ui/tooltip";
 import { useFormContext } from "@/context/FormContext";
 import { Entry, EntryPlusID } from "@/types/types";
+import { iconMap } from "@/lib/iconMap";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 //className="items-start [&_[data-description]]:hidden"
 
@@ -95,20 +73,7 @@ const entryOptions = [
   },
 ];
 
-const iconMap = {
-  character: CircleUserRound,
-  location: MapPin,
-  lore: BookOpen,
-  trope: MessageCircleWarning,
-  guideline: Ruler,
-  other: FolderClosed,
-};
-
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-export default function EntryForm() {
+export default function EntryForm({ setOpen }) {
   /*
   const [selectedTopic, setSelectedTopic] = useState("");
   const [name, setName] = useState("");
@@ -136,11 +101,22 @@ export default function EntryForm() {
       }
     }
   */
-    addEntryData(formData);
-    console.log(formData);
+    console.log("formData before adding entry: ", formData);
+    if (
+      formData.type !== "" &&
+      formData.title !== "" &&
+      formData.description !== ""
+    ) {
+      addEntryData(formData);
+      console.log(formData);
+      setOpen(false);
+    } else {
+      console.log("Empty Form Submitted, nothing done");
+    }
   };
 
-  const { selectedEntry, updateEntryData, addEntryData } = useFormContext();
+  const { selectedEntry, updateEntryData, addEntryData, typeList } =
+    useFormContext();
   const [formData, setFormData] = useState<Entry>({
     type: "",
     title: "",
@@ -168,7 +144,7 @@ export default function EntryForm() {
     setFormData((prev) => ({ ...prev, ["type"]: value }));
   };
 
-  const dummyArray = ["a", "bell", "c", "d"];
+  //NOTE: Remove const dummyArray = ["a", "bell", "c", "d"];
 
   return (
     <div className="relative hidden flex-col items-start gap-8 md:flex">
@@ -189,7 +165,7 @@ export default function EntryForm() {
               </SelectTrigger>
               <SelectContent>
                 {entryOptions.map((option) => {
-                  const IconComponent = iconMap[option.type] || Plus;
+                  const IconComponent = iconMap[option.type] || Triangle;
                   return (
                     <SelectItem value={option.type} key={option.type}>
                       <div className="flex max-w-[425px] items-start gap-3 text-muted-foreground">

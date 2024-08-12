@@ -53,7 +53,7 @@ export interface Entry {
 
 export interface EntryPlusID {
   id: string;
-  content: Entry;
+  entry: Entry;
 }
 
 interface Collection<T extends string> {
