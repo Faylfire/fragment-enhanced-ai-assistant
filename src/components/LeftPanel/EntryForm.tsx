@@ -73,52 +73,41 @@ const entryOptions = [
   },
 ];
 
-export default function EntryForm({ setOpen }) {
-  /*
-  const [selectedTopic, setSelectedTopic] = useState("");
-  const [name, setName] = useState("");
-  const [tags, setTags] = useState("");
-  const [alias, setAlias] = useState("");
-  const [description, setDescription] = useState("");
-  */
+export default function EntryForm({ setOpen, selection }) {
+  const { selectedEntry, updateEntryData, addEntryData, typeList } =
+    useFormContext();
+
+  const requiredKeys = ["type", "title", "description"];
+  function isValidFormData(obj, requiredKeys) {
+    if (Object.keys(obj).length === 0) {
+      return false; // Object is empty
+    }
+    return requiredKeys.every((key) => obj.hasOwnProperty(key));
+  }
 
   const handleSubmitEntryForm = (event) => {
     event.preventDefault();
 
-    /*
-    {
-      id: "char1",
-      content: {
-        collectionType: "character",
-        title: "Elara Moonwhisper",
-        tags: ["protagonist", "elf", "mage"],
-        aliases: ["The Starlight Sorceress", "Lady of the Silver Grove"],
-        description: "A wise and powerful elven mage with silvery hair and eyes that sparkle like starlight. Elara is known for her mastery of celestial magic and her deep connection to the natural world.",
-        notes: "Elara's staff, the Moonbeam Scepter, is a family heirloom passed down through generations of her lineage.",
-        additions: [
-          { type: "quote", content: "Magic flows through all things. We need only learn to listen." }
-        ]
-      }
-    }
-  */
     console.log("formData before adding entry: ", formData);
-    if (
-      formData.type !== "" &&
-      formData.title !== "" &&
-      formData.description !== ""
-    ) {
-      addEntryData(formData);
-      console.log(formData);
-      setOpen(false);
+    if (isValidFormData(formData, requiredKeys)) {
+      if (
+        formData.type !== "" &&
+        formData.title !== "" &&
+        formData.description !== ""
+      ) {
+        addEntryData(formData);
+        console.log(formData);
+        setOpen(false);
+      } else {
+        console.log("Empty fields, please fill out the required fields");
+      }
     } else {
-      console.log("Empty Form Submitted, nothing done");
+      console.log("Not valid formData format, nothing done");
     }
   };
 
-  const { selectedEntry, updateEntryData, addEntryData, typeList } =
-    useFormContext();
-  const [formData, setFormData] = useState<Entry>({
-    type: "",
+  const [formData, setFormData] = useState({
+    type: selection,
     title: "",
     tags: [],
     alias: [],
@@ -127,10 +116,15 @@ export default function EntryForm({ setOpen }) {
   });
 
   useEffect(() => {
+    console.log("formData updated: ", formData);
+  }, [formData]);
+
+  /*
+  useEffect(() => {
     if (selectedEntry) {
-      setFormData({ ...selectedEntry.entry });
+      setFormData({ ...selectedEntry.content });
     }
-  }, [selectedEntry]);
+  }, [selectedEntry]); */
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -152,7 +146,7 @@ export default function EntryForm({ setOpen }) {
         <fieldset className="grid gap-4 rounded-lg border p-4">
           <legend className="-ml-1 px-1 text-sm font-medium">Details</legend>
           <div className="grid gap-3">
-            <Label htmlFor="type">Topic</Label>
+            <Label htmlFor="type">Type</Label>
             <Select
               value={formData.type}
               onValueChange={handleSelectValueChange}
@@ -161,7 +155,7 @@ export default function EntryForm({ setOpen }) {
                 id="type"
                 className="items-start [&_[data-description]]:hidden"
               >
-                <SelectValue placeholder="Select a topic" />
+                <SelectValue placeholder="Select a type of entry" />
               </SelectTrigger>
               <SelectContent>
                 {entryOptions.map((option) => {

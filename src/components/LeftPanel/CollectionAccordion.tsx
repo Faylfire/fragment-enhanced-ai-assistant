@@ -242,7 +242,10 @@ export default function CollectionAccordion() {
                   <div className="font-bold">{`${capitalizeFirstLetter(
                     type
                   )} (${entriesOfType.length})`}</div>
-                  <EntryDialogOpener className="bg-primary-foreground" />
+                  <EntryDialogOpener
+                    className="bg-primary-foreground"
+                    selection={type}
+                  />
                 </div>
                 <AccordionTrigger className="flex-none"></AccordionTrigger>
               </div>

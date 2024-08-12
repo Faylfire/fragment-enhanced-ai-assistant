@@ -12,7 +12,7 @@ import {
 import EntryForm from "@/components/LeftPanel/EntryForm";
 import { cn } from "@/lib/utils";
 
-export default function EntryDialogOpener({ className }) {
+export default function EntryDialogOpener({ className, selection }) {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -35,7 +35,7 @@ export default function EntryDialogOpener({ className }) {
             Create a new Entry here. Click Save when you are done.
           </DialogDescription>
         </DialogHeader>
-        <EntryForm setOpen={setOpen} />
+        <EntryForm setOpen={setOpen} selection={selection} />
         <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
