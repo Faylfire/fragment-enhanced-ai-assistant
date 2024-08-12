@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Bird,
   Book,
@@ -48,6 +48,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useFormContext } from "@/context/FormContext";
+import { Entry, EntryPlusID } from "@/types/types";
 
 //className="items-start [&_[data-description]]:hidden"
 
@@ -107,26 +109,66 @@ function capitalizeFirstLetter(str) {
 }
 
 export default function EntryForm() {
+  /*
   const [selectedTopic, setSelectedTopic] = useState("");
   const [name, setName] = useState("");
   const [tags, setTags] = useState("");
   const [alias, setAlias] = useState("");
   const [description, setDescription] = useState("");
+  */
 
   const handleSubmitEntryForm = (event) => {
     event.preventDefault();
-    const formData = new FormData(this);
-    const formDataObject = Object.fromEntries(formData);
 
-    // Add the selected topic to the form data
-    formDataObject.topic = selectedTopic;
-    formDataObject.name = name;
-    formDataObject.tags = tags;
-    formDataObject.alias = alias;
-    formDataObject.description = description;
-
-    console.log(formDataObject);
+    /*
+    {
+      id: "char1",
+      content: {
+        collectionType: "character",
+        title: "Elara Moonwhisper",
+        tags: ["protagonist", "elf", "mage"],
+        aliases: ["The Starlight Sorceress", "Lady of the Silver Grove"],
+        description: "A wise and powerful elven mage with silvery hair and eyes that sparkle like starlight. Elara is known for her mastery of celestial magic and her deep connection to the natural world.",
+        notes: "Elara's staff, the Moonbeam Scepter, is a family heirloom passed down through generations of her lineage.",
+        additions: [
+          { type: "quote", content: "Magic flows through all things. We need only learn to listen." }
+        ]
+      }
+    }
+  */
+    addEntryData(formData);
+    console.log(formData);
   };
+
+  const { selectedEntry, updateEntryData, addEntryData } = useFormContext();
+  const [formData, setFormData] = useState<Entry>({
+    type: "",
+    title: "",
+    tags: [],
+    alias: [],
+    notes: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    if (selectedEntry) {
+      setFormData({ ...selectedEntry.entry });
+    }
+  }, [selectedEntry]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+
+    console.log(id, "value: ", value);
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSelectValueChange = (value) => {
+    console.log(value);
+    setFormData((prev) => ({ ...prev, ["type"]: value }));
+  };
+
+  const dummyArray = ["a", "bell", "c", "d"];
 
   return (
     <div className="relative hidden flex-col items-start gap-8 md:flex">
@@ -135,7 +177,10 @@ export default function EntryForm() {
           <legend className="-ml-1 px-1 text-sm font-medium">Details</legend>
           <div className="grid gap-3">
             <Label htmlFor="type">Topic</Label>
-            <Select value={selectedTopic} onValueChange={setSelectedTopic}>
+            <Select
+              value={formData.type}
+              onValueChange={handleSelectValueChange}
+            >
               <SelectTrigger
                 id="type"
                 className="items-start [&_[data-description]]:hidden"
@@ -167,13 +212,13 @@ export default function EntryForm() {
             </Select>
           </div>
           <div className="grid gap-3">
-            <Label htmlFor="name">Name/Title</Label>
+            <Label htmlFor="title">Name/Title</Label>
             <Input
-              id="name"
+              id="title"
               type="text"
               placeholder="Naming is an art and a powerful magic..."
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formData.title}
+              onChange={handleChange}
             />
           </div>
 
@@ -183,8 +228,12 @@ export default function EntryForm() {
               id="tags"
               type="text"
               placeholder="Searchable tags (separate with commas)"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
+              value={
+                Array.isArray(formData.tags)
+                  ? formData.tags.join(", ")
+                  : formData.tags
+              }
+              onChange={handleChange}
             />
           </div>
           <div className="grid gap-3">
@@ -193,8 +242,12 @@ export default function EntryForm() {
               id="alias"
               type="text"
               placeholder="Alternate names (separate with commas)"
-              value={alias}
-              onChange={(e) => setAlias(e.target.value)}
+              value={
+                Array.isArray(formData.alias)
+                  ? formData.alias.join(", ")
+                  : formData.alias
+              }
+              onChange={handleChange}
             />
           </div>
           <div className="grid gap-3">
@@ -203,8 +256,8 @@ export default function EntryForm() {
               id="description"
               placeholder="This is the lace to hold the distillation of your brilliance..."
               className="min-h-[16.5rem]"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={formData.description}
+              onChange={handleChange}
             />
           </div>
         </fieldset>
