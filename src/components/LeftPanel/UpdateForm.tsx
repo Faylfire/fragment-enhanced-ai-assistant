@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -19,18 +10,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useFormContext } from "@/context/FormContext";
 import { Entry, EntryPlusID } from "@/types/types";
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { iconMap, entryOptions } from "@/lib/sharedConstants";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
-export default function EntryForm({ setOpen, selection }) {
-  const { addEntryData } = useFormContext();
+export default function UpdateForm({ setOpen, entryContent, entryID }) {
+  const { updateEntryData } = useFormContext();
 
   const requiredKeys = ["type", "title", "description"];
   function isValidFormData(obj, requiredKeys) {
@@ -40,18 +26,19 @@ export default function EntryForm({ setOpen, selection }) {
     return requiredKeys.every((key) => obj.hasOwnProperty(key));
   }
 
-  const handleSubmitEntryForm = (event) => {
+  const handleUpdateForm = (event) => {
     event.preventDefault();
 
-    console.log("formData before adding entry: ", formData);
+    console.log("formData before Updating entry: ", entryID, formData);
+    //validate formData is the correct format before updating
     if (isValidFormData(formData, requiredKeys)) {
       if (
         formData.type !== "" &&
         formData.title !== "" &&
         formData.description !== ""
       ) {
-        addEntryData(formData);
-        console.log(formData);
+        updateEntryData(entryID, formData);
+        console.log(entryID, formData);
         setOpen(false);
       } else {
         console.log("Empty fields, please fill out the required fields");
@@ -61,14 +48,7 @@ export default function EntryForm({ setOpen, selection }) {
     }
   };
 
-  const [formData, setFormData] = useState({
-    type: selection,
-    title: "",
-    tags: [],
-    alias: [],
-    notes: "",
-    description: "",
-  });
+  const [formData, setFormData] = useState(entryContent);
 
   useEffect(() => {
     console.log("formData updated: ", formData);
@@ -186,8 +166,8 @@ export default function EntryForm({ setOpen, selection }) {
             />
           </div>
         </fieldset>
-        <Button onClick={handleSubmitEntryForm} type="submit">
-          Save changes
+        <Button onClick={handleUpdateForm} type="submit">
+          Update Entry
         </Button>
       </form>
     </div>

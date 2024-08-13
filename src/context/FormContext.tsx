@@ -3,6 +3,7 @@ import { Entry, EntryPlusID } from "@/types/types";
 import { fetchEntries, updateEntry, addEntry } from "@/services/dataAccess";
 import { database } from "@/services/firebaseAPI";
 import { ref, onValue, off } from "firebase/database";
+import { simpleIsEqual } from "@/lib/utils";
 
 const FormContext = createContext();
 const collectionName = "fragmentCollection";
@@ -24,7 +25,9 @@ export const FormProvider = ({ children }) => {
 
   const [entries, setEntries] = useState([]); //type EntryPlusID[]
 
-  const [selectedEntry, setSelectedEntry] = useState({}); //type Entry
+  //NOTE: The following line for selectedEntry might not be needed
+  //const [selectedEntry, setSelectedEntry] = useState({}); //type Entry
+
   const [typeList, setTypeList] = useState([
     "character",
     "location",
@@ -34,31 +37,26 @@ export const FormProvider = ({ children }) => {
     "other",
   ]); //type string
 
-  const updateEntryData = async (updatedEntry: Entry) => {
-    await updateEntry(updatedEntry);
+  const updateEntryData = async (updatedEntryID, updatedEntry: Entry) => {
+    const foundEntry = entries.find((obj) => obj.id === updatedEntryID);
+    if (foundEntry) {
+      if (simpleIsEqual(updatedEntry, foundEntry.content)) {
+        console.log("No changes found, update not necessary");
+      } else {
+        await updateEntry(updatedEntryID, updatedEntry);
+      }
+    } else {
+      console.log("Did not find entry with id for update");
+    }
+    /*
     setEntries((prevEntries) =>
       prevEntries.map((eachEntry) =>
         eachEntry.id === updatedEntry.id ? updatedEntry : eachEntry
       )
     );
-    setSelectedEntry(null);
+    */
   };
 
-  /*
-[
-  "-O42O2L3DszPyj0xBeJg",
-  {
-    entry: {
-      alias: "Tale",
-      description: "This is a story",
-      notes: "",
-      tags: "Story",
-      title: "Story",
-      type: "lore",
-    },
-  },
-];
-*/
   //Subscribing to onValue change for Collection entries
   useEffect(() => {
     const handleContent = (snapshot: any) => {
@@ -109,7 +107,7 @@ export const FormProvider = ({ children }) => {
     setEntries((prevEntries) => [...prevEntries, addedEntry]);
     console.log("Updating Entries");
     console.log("entries: ", entries.length);
-    setSelectedEntry(null);
+    //setSelectedEntry(null);
   };
 
   return (
@@ -117,9 +115,7 @@ export const FormProvider = ({ children }) => {
       value={{
         entry,
         entries,
-        selectedEntry,
         typeList,
-        setSelectedEntry,
         updateEntryData,
         addEntryData,
       }}

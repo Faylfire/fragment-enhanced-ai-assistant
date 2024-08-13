@@ -596,9 +596,9 @@ export function getlocationList() {
   return locationlist;
 }
 
-export function updateEntry(entry) {
+export function updateEntry(id, entry) {
   console.log("updateEntry triggered in dataAccess");
-  console.log("Entry Details: ", entry);
+  console.log("Entry ID: ", id, " Entry Details: ", entry);
 
   //TODO: Implement updateEntry with firebase update()
 }
