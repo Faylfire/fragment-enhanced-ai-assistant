@@ -600,7 +600,12 @@ export function updateEntry(id, entry) {
   console.log("updateEntry triggered in dataAccess");
   console.log("Entry ID: ", id, " Entry Details: ", entry);
 
-  //TODO: Implement updateEntry with firebase update()
+  const exactLocationOfEntryRef = ref(
+    database,
+    `${collectionName}/content/${id}`
+  );
+  update(exactLocationOfEntryRef, { content: entry });
+  //NOTE: Cleanup console.log after development phase
 }
 
 export function addEntry(entry) {
