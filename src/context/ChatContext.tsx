@@ -10,7 +10,7 @@ const collectionName = "fragmentCollection";
 const chatListRef = ref(database, `${collectionName}/chatList`);
 const chatContentRef = ref(database, `${collectionName}/chatContent`);
 
-export const FormProvider = ({ children }) => {
+export const ChatProvider = ({ children }) => {
   const [chat, setChat] = useState({
     id: `chat-${Date.now()}`,
     chatTitle: "New Chat",
@@ -18,34 +18,36 @@ export const FormProvider = ({ children }) => {
   }); //newChat `New Chat ${chatList.length + 1}`
 
   const [chatList, setChatList] = useState([]);
-  const [chats setChats] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [currentChatTabs, setCurrentChatTabs] = useState([chat]);
 
-  //Subscribing to onValue change for Chat entries
-  useEffect(() => {
-    const handleContent = (snapshot: any) => {
-      console.log("onvalue called");
-      if (snapshot.exists()) {
-        const data = Object.entries(snapshot.val());
-        const dataEntries: [];
-        console.log(data);
-        for (let item of data) {
-          console.log(item[0]);
-          console.log(item[1]);
-          dataEntries.push({ id: item[0], content: item[1].content });
-        }
-        console.log("dataEntries: ", dataEntries);
-      }
-    };
+  console.log("current chat TAB:", currentChatTabs);
 
-    onValue(chatContentRef, handleContent);
+  //   //Subscribing to onValue change for Chat entries
+  //   useEffect(() => {
+  //     const handleContent = (snapshot: any) => {
+  //       console.log("onvalue called");
+  //       if (snapshot.exists()) {
+  //         const data = Object.entries(snapshot.val());
+  //         const dataEntries: [];
+  //         for (let item of data) {
+  //           console.log(item[0]);
+  //           console.log(item[1]);
+  //           dataEntries.push({ id: item[0], content: item[1].content });
+  //         }
+  //         console.log("dataEntries: ", dataEntries);
+  //       }
+  //     };
 
-    return () => off(chatContentRef, "value", handleContent);
-  }, []);
+  //     onValue(chatContentRef, handleContent);
+
+  //     return () => off(chatContentRef, "value", handleContent);
+  //   }, []);
 
   //Subscribing to onValue changes to chatList
   useEffect(() => {
-    const handleTypeList = (snapshot: any) => {
-      console.log("typelist onvalue called");
+    const handleChatList = (snapshot: any) => {
+      console.log("Chatlist onvalue called");
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val());
         const chatTabs = [];
@@ -53,20 +55,22 @@ export const FormProvider = ({ children }) => {
         for (let item of data) {
           chatTabs.push(item[1]);
         }
-        setChatList(chatTabs)
+        setChatList(chatTabs);
       }
     };
 
-    onValue(chatListRef, handleTypeList);
+    onValue(chatListRef, handleChatList);
 
-    return () => off(chatListRef, "value", handleTypeList);
+    return () => off(chatListRef, "value", handleChatList);
   }, []);
-
 
   return (
     <ChatContext.Provider
       value={{
         chat,
+        chatList,
+        chats,
+        currentChatTabs,
       }}
     >
       {children}

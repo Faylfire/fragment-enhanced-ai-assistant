@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import NavBar from './NavBar';
 //import TopicList from './TopicList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,9 +6,14 @@ import { ChatList, ChatMessage, ChatEntry } from "@/types/types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { useChatContext } from "@/context/ChatContext";
 
 function ChatTabs({ initChatList }: { initChatList: ChatList }) {
   const [chatList, setChatList] = useState(initChatList);
+  const [activeTab, setActiveTab] = useState(chatList[0].id);
+
+  const { chat, chats, currentChatTabs } = useChatContext();
+
   const addNewTab = () => {
     const newChat: ChatEntry = {
       id: `chat-${Date.now()}`,
@@ -16,11 +21,18 @@ function ChatTabs({ initChatList }: { initChatList: ChatList }) {
       chatContent: [],
     };
     setChatList([...chatList, newChat]);
+    setActiveTab(newChat.id);
   };
+
+  useEffect(() => {
+    setChatList(currentChatTabs);
+    setActiveTab(currentChatTabs[currentChatTabs.length - 1].id);
+  }, [currentChatTabs]);
 
   return (
     <Tabs
-      defaultValue={chatList[0].id}
+      value={activeTab}
+      onValueChange={setActiveTab}
       className="w-full h-screen flex flex-col"
     >
       <TabsList className="sticky top-0 z-10 items-center justify-start rounded-none">
