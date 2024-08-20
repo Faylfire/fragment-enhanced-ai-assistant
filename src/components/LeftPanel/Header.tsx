@@ -8,13 +8,18 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { FormProvider } from "@/context/FormContext";
 
 function Header() {
-  let longArray = new Array(100).fill(0);
+  //NOTE: Clean up this longArray, this is for visualization and will be removed
+  const longArray = new Array(100).fill(0);
   return (
     <FormProvider>
       <Tabs defaultValue="collections" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="collections">Collections</TabsTrigger>
-          <TabsTrigger value="chats">Chats</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 gap-1">
+          <TabsTrigger value="collections" className="hover:bg-highlight">
+            Collections
+          </TabsTrigger>
+          <TabsTrigger value="chats" className="hover:bg-highlight">
+            Chats
+          </TabsTrigger>
         </TabsList>
         <TabsContent className="h-full" value="collections">
           <ScrollArea className="h-screen rounded-md border">
