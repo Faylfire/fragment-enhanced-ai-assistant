@@ -5,9 +5,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 //import CollectionCard from './CollectionCard';
 import CollectionAccordion from "./CollectionAccordion";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { FormProvider, useFormContext } from "@/context/FormContext";
+import { FormProvider } from "@/context/FormContext";
 
 function Header() {
+  let longArray = new Array(100).fill(0);
   return (
     <FormProvider>
       <Tabs defaultValue="collections" className="w-full">
@@ -23,7 +24,18 @@ function Header() {
             <ScrollBar orientation="vertical" />
           </ScrollArea>
         </TabsContent>
-        <TabsContent value="chats">See your chats here</TabsContent>
+        <TabsContent className="h-full" value="chats">
+          <ScrollArea className="h-screen rounded-md border">
+            <div className="pb-[150px]">
+              {longArray.map((item, index) => {
+                return (
+                  <div className="p-4 border hover:bg-highlight">{`Chat ${index}`}</div>
+                );
+              })}
+            </div>
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
+        </TabsContent>
       </Tabs>
     </FormProvider>
   );

@@ -16,8 +16,10 @@ Features:
 - Allow for 'Asides' conversations that deviate from the original purpose but still relevant and pulled 'aside' as not to pollute the main conversation
 - A catalog of past chats/conversations
 - Additional features for enhanced workflows such as research and summary and distillation into collection Entries
+- Agentic features: Create a new project, agent creates collection entries, agent formulates story outline, agents create scenes, agents asks and advices on creative elements.
 
-Initial File Structure:
+
+Originally Planned File Structure (Shadcn component files not shown):
 
 src/
 ├── components/
@@ -40,7 +42,7 @@ src/
 │   ├── useTopics.js
 │   └── useChats.js            // New hook for managing chats
 ├── services/
-│   └── api.js
+│   └── data-api.js
 ├── index.css
 ├── App.js
 └── utils/
@@ -62,6 +64,9 @@ tooltip
 Components Added:
 Accordion
 
+## Firebase API Reference
+
+https://firebase.google.com/docs/database/admin/retrieve-data
 
 ## React + TypeScript + Vite
 
