@@ -35,11 +35,11 @@ function ChatTabs({ initChatList }: { initChatList: ChatList }) {
       onValueChange={setActiveTab}
       className="w-full h-screen flex flex-col"
     >
-      <TabsList className="sticky top-0 z-10 items-center justify-start rounded-none">
+      <TabsList className="sticky top-0 z-10 items-center justify-start rounded-none w-full flex flex-nowrap">
         {chatList.map((chat: ChatEntry) => {
           return (
             <TabsTrigger
-              className="hover:bg-highlight m-1"
+              className="hover:bg-highlight flex-shrink min-w-[50px] max-w-[150px] truncate"
               key={chat.id}
               value={chat.id}
             >
@@ -47,7 +47,12 @@ function ChatTabs({ initChatList }: { initChatList: ChatList }) {
             </TabsTrigger>
           );
         })}
-        <Button variant="ghost" size="icon" onClick={addNewTab}>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={addNewTab}
+          className="flex-shrink-0 m-1 w-8 hover:bg-highlight rounded-full"
+        >
           <Plus className="h-4 w-4" />
         </Button>
       </TabsList>
