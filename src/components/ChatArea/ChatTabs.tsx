@@ -7,6 +7,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useChatContext } from "@/context/ChatContext";
+import { Separator } from "@/components/ui/separator";
 
 function ChatTabs({ initChatList }: { initChatList: ChatList }) {
   const [chatList, setChatList] = useState(initChatList);
@@ -35,16 +36,19 @@ function ChatTabs({ initChatList }: { initChatList: ChatList }) {
       onValueChange={setActiveTab}
       className="w-full h-screen flex flex-col"
     >
-      <TabsList className="sticky top-0 z-10 items-center justify-start rounded-none w-full flex flex-nowrap">
-        {chatList.map((chat: ChatEntry) => {
+      <TabsList className="sticky top-0 z-10 mb-0 items-center justify-start rounded-none w-full flex flex-nowrap">
+        {chatList.map((chat: ChatEntry, index: number) => {
           return (
-            <TabsTrigger
-              className="hover:bg-highlight flex-shrink min-w-[50px] max-w-[150px] truncate"
-              key={chat.id}
-              value={chat.id}
-            >
-              {chat.chatTitle}
-            </TabsTrigger>
+            <div className="flex flex-shrink min-w-[25px] max-w-[150px] items-center justify-start">
+              {index !== 0 && <p>|</p>}
+              <TabsTrigger
+                className="hover:bg-highlight flex-shrink min-w-[50px] max-w-[150px] mb-0"
+                key={chat.id}
+                value={chat.id}
+              >
+                <p className="truncate">{chat.chatTitle}</p>
+              </TabsTrigger>
+            </div>
           );
         })}
         <Button
