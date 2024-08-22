@@ -224,8 +224,8 @@ export default function CollectionAccordion() {
   }, [entries]);
 
   function getEntriesFromType(type) {
-    const filteredEntries: EntryPlusID[] = entries.filter((entry) =>
-      entry ? entry.content?.type === type : false
+    const filteredEntries: EntryPlusID[] = entries.filter(
+      (entry) => entry?.content?.type === type
     );
     console.log(filteredEntries);
     return filteredEntries;

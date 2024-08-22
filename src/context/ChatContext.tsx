@@ -4,6 +4,7 @@ import { fetchEntries, updateEntry, addEntry } from "@/services/dataAccess";
 import { database } from "@/services/firebaseAPI";
 import { ref, onValue, off } from "firebase/database";
 import { simpleIsEqual } from "@/lib/utils";
+import { dummyChats } from "@/lib/sharedConstants";
 
 const ChatContext = createContext();
 const collectionName = "fragmentCollection";
@@ -19,7 +20,7 @@ export const ChatProvider = ({ children }) => {
 
   const [chatList, setChatList] = useState([]);
   const [chats, setChats] = useState([]);
-  const [currentChatTabs, setCurrentChatTabs] = useState([chat]);
+  const [currentChatTabs, setCurrentChatTabs] = useState(dummyChats);
 
   console.log("current chat TAB:", currentChatTabs);
 

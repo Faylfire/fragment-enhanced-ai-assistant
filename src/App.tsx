@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 //import { TopicProvider } from './contexts/TopicContext';
 //import { ChatProvider } from './contexts/ChatContext';
-import LeftPanel from '@/components/LeftPanel/LeftPanel';
-import ChatArea from '@/components/ChatArea/ChatArea';
+import LeftPanel from "@/components/LeftPanel/LeftPanel";
+import ChatArea from "@/components/ChatArea/ChatArea";
+import ChatArea2 from "@/components/ChatArea/ChatArea2";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable"
-
+} from "@/components/ui/resizable";
 
 function App() {
   return (
@@ -16,15 +16,13 @@ function App() {
       <ResizablePanel defaultSize={30} minSize={20} maxSize={40}>
         <LeftPanel />
       </ResizablePanel>
-      <ResizableHandle className="" withHandle/>
+      <ResizableHandle className="" withHandle />
       <ResizablePanel defaultSize={70}>
-        <ChatArea />
+        <ChatArea2 />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
 }
-
-
 
 /*
 function App() {
@@ -61,4 +59,4 @@ function App() {
 
 */
 
-export default App
+export default App;
