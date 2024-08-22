@@ -1,19 +1,58 @@
-import React, { useState, useEffect } from "react";
-//import NavBar from './NavBar';
-//import TopicList from './TopicList';
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChatList, ChatMessage, ChatEntry } from "@/types/types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea";
+import { ArrowRight } from "lucide-react";
 
 export default function ChatMessagesDisplay({ initChat = [] }) {
   const [chat, setChat] = useState(initChat);
   const [inputText, setInputText] = useState<string>("");
+  const chatOutputRef = useRef<HTMLDivElement | null>(null);
 
   const handleInputChange = (value: string) => {
     setInputText(value);
   };
+
+  //On Sending Message to LLM API
+  const handleSubmit = useCallback(() => {
+    const inputMessage = inputText.trim();
+    if (!inputMessage) return;
+    console.log(`Sending Prompt for ${chat.id}: `, { inputText });
+    // Add chat submission logic here
+
+    const userMessage = { role: "user", content: inputMessage };
+    const userMessageWithContext = [...chat.chatContent, userMessage];
+    setChat((prevChat) => ({
+      ...prevChat,
+      chatContent: [...prevChat.chatContent, userMessage],
+    }));
+
+    setInputText(""); // Clear the input after submission
+  }, [inputText]);
+
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit();
+      }
+    },
+    [handleSubmit]
+  );
+
+  //scroll to the newest chat response
+  useEffect(() => {
+    if (chatOutputRef.current) {
+      const scrollableNode = chatOutputRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]"
+      );
+      if (scrollableNode) {
+        scrollableNode.scrollTop = scrollableNode.scrollHeight;
+      }
+    }
+  }, [chat.chatContent]);
 
   useEffect(() => {
     console.log("run once chat tab load");
@@ -25,7 +64,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
       key={`chatContent-${chat.id}`}
       value={chat.id}
     >
-      <ScrollArea className="h-screen rounded-md border">
+      <ScrollArea className="h-screen rounded-md border" ref={chatOutputRef}>
         <div className="pb-[150px] pt-[10px]">
           {chat.chatContent.map((line: ChatMessage, index: number) => {
             return (
@@ -47,16 +86,12 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
           className="rounded-2xl w-full"
           value={inputText}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           placeholder="How can I help you?"
         />
-        <Button
-          className="rounded-2xl"
-          type="submit"
-          onClick={() => {
-            console.log({ inputText });
-          }}
-        >
-          Add Chat
+        <Button className="rounded-2xl" type="submit" onClick={handleSubmit}>
+          Send
+          <ArrowRight />
         </Button>
       </div>
     </TabsContent>

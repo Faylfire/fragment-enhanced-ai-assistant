@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 //import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface ExpandingTextareaProps {
   placeholder?: string;
@@ -17,7 +17,8 @@ export const ExpandingTextarea: React.FC<ExpandingTextareaProps> = ({
   className,
   onChange,
   minRows = 1,
-  maxRows = 10
+  maxRows = 10,
+  onKeyDown,
 }) => {
   const [rows, setRows] = useState(minRows);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -26,23 +27,28 @@ export const ExpandingTextarea: React.FC<ExpandingTextareaProps> = ({
     adjustTextareaHeight();
   }, [value]);
 
-    const adjustTextareaHeight = () => {
+  const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
       // Reset height to single row
       textarea.style.height = `${minRows * 24 + 16}px`;
-      console.log("Adjusting textarea height")
+      console.log("Adjusting textarea height");
       // Calculate the new height
       const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
       const paddingTop = parseInt(getComputedStyle(textarea).paddingTop);
       const paddingBottom = parseInt(getComputedStyle(textarea).paddingBottom);
       const newHeight = textarea.scrollHeight - paddingTop - paddingBottom;
-      
+
       // Calculate new rows
-      const newRows = Math.max(minRows, Math.min(Math.floor(newHeight / lineHeight), maxRows));
-      
+      const newRows = Math.max(
+        minRows,
+        Math.min(Math.floor(newHeight / lineHeight), maxRows)
+      );
+
       // Set the new height and rows
-      textarea.style.height = `${newRows * lineHeight + paddingTop + paddingBottom}px`;
+      textarea.style.height = `${
+        newRows * lineHeight + paddingTop + paddingBottom
+      }px`;
       setRows(newRows);
     }
   };
@@ -51,14 +57,22 @@ export const ExpandingTextarea: React.FC<ExpandingTextareaProps> = ({
     onChange(e.target.value);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    onKeyDown(e);
+  };
+
   return (
     <textarea
       ref={textareaRef}
       placeholder={placeholder}
       value={value}
       onChange={handleChange}
+      onKeyDown={handleKeyDown}
       rows={rows}
-      className={cn("resize-none overflow-y w-full p-2 border rounded font-semibold text-background bg-muted-foreground placeholder-background/60", className)}
+      className={cn(
+        "resize-none overflow-y w-full p-2 border rounded font-semibold text-background bg-muted-foreground placeholder-background/60",
+        className
+      )}
     />
   );
-}
+};
