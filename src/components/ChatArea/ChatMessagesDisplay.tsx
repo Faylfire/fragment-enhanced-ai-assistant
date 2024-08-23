@@ -142,7 +142,12 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
           onKeyDown={handleKeyDown}
           placeholder="How can I help you?"
         />
-        <Button className="rounded-2xl" type="submit" onClick={handleSubmit}>
+        <Button
+          className="rounded-2xl"
+          type="submit"
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
           Send
           <ArrowRight />
         </Button>

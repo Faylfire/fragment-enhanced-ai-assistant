@@ -4,8 +4,11 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 //import CollectionCard from './CollectionCard';
 import CollectionAccordion from "./CollectionAccordion";
+import ChatAccordion from "./ChatAccordion";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { FormProvider } from "@/context/FormContext";
+import { ChatProvider } from "@/context/ChatContext";
+import { dummyChats } from "@/lib/sharedConstants";
 
 function Header() {
   //NOTE: Clean up this longArray, this is for visualization and will be removed
@@ -29,18 +32,16 @@ function Header() {
             <ScrollBar orientation="vertical" />
           </ScrollArea>
         </TabsContent>
-        <TabsContent className="h-full" value="chats">
-          <ScrollArea className="h-screen rounded-md border">
-            <div className="pb-[150px]">
-              {longArray.map((item, index) => {
-                return (
-                  <div className="p-4 border hover:bg-highlight">{`Chat ${index}`}</div>
-                );
-              })}
-            </div>
-            <ScrollBar orientation="vertical" />
-          </ScrollArea>
-        </TabsContent>
+        <ChatProvider>
+          <TabsContent className="h-full" value="chats">
+            <ScrollArea className="h-screen rounded-md border">
+              <div className="pb-[150px]">
+                <ChatAccordion initChatList={dummyChats} />
+              </div>
+              <ScrollBar orientation="vertical" />
+            </ScrollArea>
+          </TabsContent>
+        </ChatProvider>
       </Tabs>
     </FormProvider>
   );

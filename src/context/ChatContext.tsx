@@ -22,7 +22,7 @@ export const ChatProvider = ({ children }) => {
   const [chats, setChats] = useState([]);
   const [currentChatTabs, setCurrentChatTabs] = useState(dummyChats);
 
-  console.log("current chat TAB:", currentChatTabs);
+  //console.log("current chat TAB:", currentChatTabs);
 
   //   //Subscribing to onValue change for Chat entries
   //   useEffect(() => {
