@@ -4,9 +4,10 @@ import { database } from "@/services/firebaseAPI";
 import { Entry, EntryPlusID } from "@/types/types";
 
 //const database = getFirebase("user", "pass");
-const collectionName = "fragmentCollection";
+export const collectionName = "fragmentCollection";
 const typeListRef = ref(database, `${collectionName}/typeList`);
 const contentRef = ref(database, `${collectionName}/content`);
+const chatsRef = ref(database, `${collectionName}/chats`);
 
 /*
 onValue(typeListRef, (snapshot) => {
@@ -613,4 +614,23 @@ export function addEntry(entry) {
   console.log("addEntry triggered in dataAccess");
   console.log("Entry Details: ", entry);
   push(contentRef, { content: entry });
+}
+
+export function addChat(ref, chat) {
+  console.log("addChat triggered in dataAccess");
+  set(ref, { chat });
+}
+
+export function getNewChatRef() {
+  console.log("getNewChatRef triggered in dataAccess");
+  const newChatRef = push(chatsRef);
+  return newChatRef;
+}
+
+export function updateChat(id, chat) {
+  console.log("updateChat triggered in dataAccess");
+  /*
+  const exactLocationOfChatRef = ref(database, `${collectionName}/chats/${id}`);
+  update(exactLocationOfChatRef, chat);
+  */
 }

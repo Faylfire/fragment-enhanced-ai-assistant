@@ -251,7 +251,10 @@ export default function CollectionAccordion() {
                   </div>
                   <AccordionTrigger className="flex-none"></AccordionTrigger>
                 </div>
-                <AccordionContent className="p-0">
+                <AccordionContent
+                  className="p-0"
+                  key={`AccordionContent-${type}`}
+                >
                   {entriesOfType.map((entry: Entry, index: number) => {
                     const IconComponent = iconMap[type] || Triangle;
                     const entryContent = entry.content;
@@ -259,9 +262,9 @@ export default function CollectionAccordion() {
                       <UpdateDialogOpener
                         entryContent={entryContent}
                         entryID={entry.id}
+                        key={entry.id}
                       >
                         <div
-                          key={entry.id}
                           id={entry.id}
                           className="flex items-center gap-4 hover:bg-highlight px-4 py-2 m-[1px] rounded-lg"
                         >

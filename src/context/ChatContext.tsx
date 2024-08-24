@@ -1,14 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Entry, EntryPlusID } from "@/types/types";
-import { fetchEntries, updateEntry, addEntry } from "@/services/dataAccess";
+import {
+  addChat,
+  getNewChatRef,
+  updateChat,
+  collectionName,
+} from "@/services/dataAccess";
 import { database } from "@/services/firebaseAPI";
 import { ref, onValue, off } from "firebase/database";
 import { simpleIsEqual } from "@/lib/utils";
 import { dummyChats } from "@/lib/sharedConstants";
 
 const ChatContext = createContext();
-const collectionName = "fragmentCollection";
-const chatListRef = ref(database, `${collectionName}/chatList`);
+const chatListRef = ref(database, `${collectionName}/chats`);
 const chatContentRef = ref(database, `${collectionName}/chatContent`);
 
 export const ChatProvider = ({ children }) => {
@@ -22,29 +26,26 @@ export const ChatProvider = ({ children }) => {
   const [chats, setChats] = useState([]);
   const [currentChatTabs, setCurrentChatTabs] = useState(dummyChats);
 
-  //console.log("current chat TAB:", currentChatTabs);
+  function saveNewChat(chat) {
+    console.log("in Save New Chat");
+    const chatRef = getNewChatRef();
+    let newChat = { ...chat, id: chatRef.key };
+    console.log("New Chat REF: ", chatRef.key);
+    addChat(chatRef, newChat);
+  }
 
-  //   //Subscribing to onValue change for Chat entries
-  //   useEffect(() => {
-  //     const handleContent = (snapshot: any) => {
-  //       console.log("onvalue called");
-  //       if (snapshot.exists()) {
-  //         const data = Object.entries(snapshot.val());
-  //         const dataEntries: [];
-  //         for (let item of data) {
-  //           console.log(item[0]);
-  //           console.log(item[1]);
-  //           dataEntries.push({ id: item[0], content: item[1].content });
-  //         }
-  //         console.log("dataEntries: ", dataEntries);
-  //       }
-  //     };
+  //Tests if the this updateChatEntry comes from a newly created chat
+  function isNewChat(chats, idToCheck) {
+    return !chats.some((item) => item.id === idToCheck);
+  }
 
-  //     onValue(chatContentRef, handleContent);
-
-  //     return () => off(chatContentRef, "value", handleContent);
-  //   }, []);
-
+  function updateChatEntry(id, chat) {
+    if (isNewChat(chatList, id)) {
+      saveNewChat(chat);
+    } else {
+      updateChat(id, chat);
+    }
+  }
   //Subscribing to onValue changes to chatList
   useEffect(() => {
     const handleChatList = (snapshot: any) => {
@@ -54,9 +55,10 @@ export const ChatProvider = ({ children }) => {
         const chatTabs = [];
         console.log(data);
         for (let item of data) {
-          chatTabs.push(item[1]);
+          chatTabs.push({ ...item[1].chat, id: item[0] });
         }
         setChatList(chatTabs);
+        setCurrentChatTabs(chatTabs);
       }
     };
 
@@ -72,6 +74,7 @@ export const ChatProvider = ({ children }) => {
         chatList,
         chats,
         currentChatTabs,
+        updateChatEntry,
       }}
     >
       {children}

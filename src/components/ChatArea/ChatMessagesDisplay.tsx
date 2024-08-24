@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea";
 import { ArrowRight } from "lucide-react";
 import { lmClient } from "@/services/openConfig";
+import { useChatContext } from "@/context/ChatContext";
 
 export default function ChatMessagesDisplay({ initChat = [] }) {
   const [chat, setChat] = useState(initChat);
@@ -13,10 +14,16 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
   const [isLoading, setIsLoading] = useState(false);
   const chatOutputRef = useRef<HTMLDivElement | null>(null);
   const controllerRef = useRef(null);
+  const chatRef = useRef(null);
+  const { updateChatEntry } = useChatContext();
 
   const handleInputChange = (value: string) => {
     setInputText(value);
   };
+
+  useEffect(() => {
+    chatRef.current = chat;
+  }, [chat]);
 
   //On Sending Message to LLM API
   const handleSubmit = useCallback(async () => {
@@ -66,10 +73,11 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
             const updatedMessages = [...prevChat.chatContent];
             updatedMessages[updatedMessages.length - 1].content =
               assistantResponse;
-            return {
+            const updatedChat = {
               ...prevChat,
               chatContent: updatedMessages,
             };
+            return updatedChat;
           });
         }
       }
@@ -82,6 +90,8 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
       }
     } finally {
       setIsLoading(false);
+      console.log(chatRef.current);
+      updateChatEntry(chat.id, chatRef.current);
     }
   }, [inputText]);
 
@@ -112,11 +122,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
   }, []);
 
   return (
-    <TabsContent
-      className="h-full"
-      key={`chatContent-${chat.id}`}
-      value={chat.id}
-    >
+    <TabsContent className="h-full" value={chat.id}>
       <ScrollArea className="h-screen rounded-md border" ref={chatOutputRef}>
         <div className="pb-[150px] pt-[10px]">
           {chat.chatContent.map((line: ChatMessage, index: number) => {

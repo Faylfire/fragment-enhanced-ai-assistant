@@ -68,6 +68,7 @@ export const entryOptions = [
 
 export const dummyChats: ChatList = [
   {
+    chatID: "1",
     id: "1",
     chatTitle: "First Conversation",
     chatContent: [
@@ -79,6 +80,7 @@ export const dummyChats: ChatList = [
     ],
   },
   {
+    chatID: "2",
     id: "2",
     chatTitle: "Tech Support",
     chatContent: [
@@ -92,6 +94,7 @@ export const dummyChats: ChatList = [
     ],
   },
   {
+    chatID: "3",
     id: "3",
     chatTitle: "Tech Support2",
     chatContent: [
@@ -105,6 +108,7 @@ export const dummyChats: ChatList = [
     ],
   },
   {
+    chatID: "4",
     id: "4",
     chatTitle: "Chat Overflow",
     chatContent: [
@@ -221,5 +225,11 @@ export const dummyChats: ChatList = [
           "Let's try some troubleshooting steps. First, make sure to restart2",
       },
     ],
+  },
+  {
+    chatID: "5",
+    id: "5",
+    chatTitle: "New Chat 5",
+    chatContent: [],
   },
 ];

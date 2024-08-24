@@ -7,6 +7,7 @@ export interface ChatMessage {
 // Define the structure for a single chat entry
 export interface ChatEntry {
   id: string;
+  chatID: string;
   chatTitle: string;
   chatContent: ChatMessage[];
 }
@@ -53,7 +54,7 @@ export interface Entry {
 
 export interface EntryPlusID {
   id: string;
-  entry: Entry;
+  content: Entry;
 }
 
 interface Collection<T extends string> {

@@ -22,18 +22,26 @@ export default function CollectionAccordion({ initChatList }) {
   return (
     <>
       <Accordion type="multiple" className="w-full">
-        {initChatList.map((chat) => {
+        {chatList.map((chat) => {
           return (
-            <AccordionItem value={chat.title} key={chat.id} id={chat.id}>
+            <AccordionItem value={chat.chatTitle} key={chat.id} id={chat.id}>
               <div className="flex px-4 bg-primary-foreground">
                 <div className="flex flex-grow items-center justify-between pr-2">
                   <div className="font-bold">{`${capitalizeFirstLetter(
                     chat.chatTitle
                   )}`}</div>
+                  <div>
+                    {chat.chatContent[0]?.content
+                      ? chat.chatContent[0].content
+                      : ""}
+                  </div>
                 </div>
                 <AccordionTrigger className="flex-none"></AccordionTrigger>
               </div>
-              <AccordionContent className="p-0">
+              <AccordionContent
+                className="p-0"
+                key={`AccordionContent-${chat.id}`}
+              >
                 {/*test for asides in the chat object if so render them here*/}
               </AccordionContent>
             </AccordionItem>

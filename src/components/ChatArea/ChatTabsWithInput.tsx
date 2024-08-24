@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
-//import NavBar from './NavBar';
-//import TopicList from './TopicList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChatList, ChatMessage, ChatEntry } from "@/types/types";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useChatContext } from "@/context/ChatContext";
 
 import ChatMessagesDisplay from "@/components/ChatArea/ChatMessagesDisplay";
 
-function ChatTabsWithInput({ initChatList }: { initChatList: ChatList }) {
+export default function ChatTabsWithInput({
+  initChatList,
+}: {
+  initChatList: ChatList;
+}) {
   const [chatList, setChatList] = useState(initChatList);
   const [activeTab, setActiveTab] = useState(chatList[0].id);
 
-  const { chat, chats, currentChatTabs } = useChatContext();
+  const { currentChatTabs } = useChatContext();
 
   const addNewTab = () => {
     const newChat: ChatEntry = {
       id: `chat-${Date.now()}`,
+      chatID: `chat-${Date.now()}`,
       chatTitle: `New Chat ${chatList.length + 1}`,
       chatContent: [],
     };
@@ -40,11 +42,13 @@ function ChatTabsWithInput({ initChatList }: { initChatList: ChatList }) {
       <TabsList className="sticky top-0 z-10 mb-0 items-center justify-start rounded-none w-full flex flex-nowrap">
         {chatList.map((chat: ChatEntry, index: number) => {
           return (
-            <div className="flex flex-shrink min-w-[25px] max-w-[150px] items-center justify-start">
+            <div
+              className="flex flex-shrink min-w-[25px] max-w-[150px] items-center justify-start"
+              key={chat.id}
+            >
               {index !== 0 && <p>|</p>}
               <TabsTrigger
                 className="hover:bg-highlight flex-shrink min-w-[50px] max-w-[150px] mb-0"
-                key={chat.id}
                 value={chat.id}
               >
                 <p className="truncate">{chat.chatTitle}</p>
@@ -62,10 +66,10 @@ function ChatTabsWithInput({ initChatList }: { initChatList: ChatList }) {
         </Button>
       </TabsList>
       {chatList.map((chat: ChatEntry) => {
-        return <ChatMessagesDisplay initChat={chat} />;
+        return (
+          <ChatMessagesDisplay initChat={chat} key={`chatContent-${chat.id}`} />
+        );
       })}
     </Tabs>
   );
 }
-
-export default ChatTabsWithInput;
