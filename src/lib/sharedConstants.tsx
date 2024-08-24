@@ -66,7 +66,7 @@ export const entryOptions = [
   },
 ];
 
-export const dummyChats: ChatList = [
+export const dummyChatsOld: ChatList = [
   {
     chatID: "1",
     id: "1",
@@ -230,6 +230,15 @@ export const dummyChats: ChatList = [
     chatID: "5",
     id: "5",
     chatTitle: "New Chat 5",
+    chatContent: [],
+  },
+];
+
+export const dummyChats: ChatList = [
+  {
+    chatID: `chat-${Date.now()}`,
+    id: `chat-${Date.now()}`,
+    chatTitle: "New Chat",
     chatContent: [],
   },
 ];

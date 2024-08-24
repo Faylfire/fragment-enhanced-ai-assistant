@@ -5,14 +5,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useChatContext } from "@/context/ChatContext";
 import { capitalizeFirstLetter, getFirstSentence } from "@/lib/utils";
+import { Trash2Icon } from "lucide-react";
 
 export default function CollectionAccordion({ initChatList }) {
-  const { chatList, chats } = useChatContext();
+  const { chatList, removeChat } = useChatContext();
 
   console.log("in Chat Accordion--------", initChatList);
   useEffect(() => {
@@ -23,6 +22,9 @@ export default function CollectionAccordion({ initChatList }) {
     <>
       <Accordion type="multiple" className="w-full">
         {chatList.map((chat) => {
+          const deleteChat = () => {
+            removeChat(chat.id);
+          };
           return (
             <AccordionItem value={chat.chatTitle} key={chat.id} id={chat.id}>
               <div className="flex px-4 bg-primary-foreground">
@@ -35,8 +37,17 @@ export default function CollectionAccordion({ initChatList }) {
                       ? chat.chatContent[0].content
                       : ""}
                   </div>
+                  <Button
+                    onClick={deleteChat}
+                    aria-label="Add new entry"
+                    className="bg-background hover:bg-background hover:text-muted-foreground text-foreground font-bold text-2xl p-0 bg-primary-foreground"
+                  >
+                    <Trash2Icon className="h-4 w-4" />
+                  </Button>
                 </div>
-                <AccordionTrigger className="flex-none"></AccordionTrigger>
+                {chat.hasOwnProperty("aside") && (
+                  <AccordionTrigger className="flex-none"></AccordionTrigger>
+                )}
               </div>
               <AccordionContent
                 className="p-0"

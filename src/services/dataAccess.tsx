@@ -618,7 +618,7 @@ export function addEntry(entry) {
 
 export function addChat(ref, chat) {
   console.log("addChat triggered in dataAccess");
-  set(ref, { chat });
+  set(ref, { chat: chat });
 }
 
 export function getNewChatRef() {
@@ -629,8 +629,11 @@ export function getNewChatRef() {
 
 export function updateChat(id, chat) {
   console.log("updateChat triggered in dataAccess");
-  /*
   const exactLocationOfChatRef = ref(database, `${collectionName}/chats/${id}`);
-  update(exactLocationOfChatRef, chat);
-  */
+  update(exactLocationOfChatRef, { chat: chat });
+}
+
+export function deleteChat(id) {
+  const exactLocationOfChatRef = ref(database, `${collectionName}/chats/${id}`);
+  remove(exactLocationOfChatRef);
 }

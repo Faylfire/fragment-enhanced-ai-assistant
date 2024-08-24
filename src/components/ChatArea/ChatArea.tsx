@@ -1,11 +1,7 @@
 import { React, useState } from "react";
-//import { useTopicContext } from '../../contexts/TopicContext';
-//import ChatInput from './ChatInput';
-//import ChatMessages from './ChatMessages';
 import ChatTabs from "./ChatTabs";
 import { Button } from "@/components/ui/button";
 import { ChatList, ChatEntry } from "@/types/types";
-//import { Input } from "@/components/ui/input"
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea";
 import { addCollectionEntry } from "@/services/dataAccess";
 import { ChatProvider } from "@/context/ChatContext";

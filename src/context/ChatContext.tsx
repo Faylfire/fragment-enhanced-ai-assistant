@@ -5,6 +5,7 @@ import {
   getNewChatRef,
   updateChat,
   collectionName,
+  deleteChat,
 } from "@/services/dataAccess";
 import { database } from "@/services/firebaseAPI";
 import { ref, onValue, off } from "firebase/database";
@@ -38,7 +39,7 @@ export const ChatProvider = ({ children }) => {
   function isNewChat(chats, idToCheck) {
     return !chats.some((item) => item.id === idToCheck);
   }
-
+  //Update chat with new entries, first check if conversation exists and update, otherwise add it
   function updateChatEntry(id, chat) {
     if (isNewChat(chatList, id)) {
       saveNewChat(chat);
@@ -46,6 +47,12 @@ export const ChatProvider = ({ children }) => {
       updateChat(id, chat);
     }
   }
+
+  //Remove Chat from database
+  function removeChat(id) {
+    deleteChat(id);
+  }
+
   //Subscribing to onValue changes to chatList
   useEffect(() => {
     const handleChatList = (snapshot: any) => {
@@ -59,6 +66,8 @@ export const ChatProvider = ({ children }) => {
         }
         setChatList(chatTabs);
         setCurrentChatTabs(chatTabs);
+      } else {
+        setChatList([]);
       }
     };
 
@@ -75,6 +84,7 @@ export const ChatProvider = ({ children }) => {
         chats,
         currentChatTabs,
         updateChatEntry,
+        removeChat,
       }}
     >
       {children}
