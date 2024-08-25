@@ -4,6 +4,7 @@ import { ChatList, ChatMessage, ChatEntry } from "@/types/types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea";
+import { ExpandingContentEditable } from "@/components/Custom/ExpandingContentEditable";
 import { ArrowRight } from "lucide-react";
 import { lmClient } from "@/services/openConfig";
 import { useChatContext } from "@/context/ChatContext";
@@ -141,12 +142,12 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
         <ScrollBar orientation="vertical" />
       </ScrollArea>
       <div className="absolute bottom-10 w-[80%] bg-black/95 text-background rounded-3xl p-2 flex justify-around gap-4 left-1/2 -translate-x-1/2">
-        <ExpandingTextarea
+        <ExpandingContentEditable
           className="rounded-2xl w-full"
           value={inputText}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          placeholder="How can I help you?"
+          placeholder=""
         />
         <Button
           className="rounded-2xl"
@@ -161,3 +162,13 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
     </TabsContent>
   );
 }
+
+/*
+        <ExpandingTextarea
+          className="rounded-2xl w-full"
+          value={inputText}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          placeholder="How can I help you?"
+        />
+        */
