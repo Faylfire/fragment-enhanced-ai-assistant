@@ -94,7 +94,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
       console.log(chatRef.current);
       updateChatEntry(chat.id, chatRef.current);
     }
-  }, [inputText]);
+  }, []);
 
   const handleKeyDown = useCallback(
     (e) => {
