@@ -33,9 +33,10 @@ export const ExpandingContentEditable: React.FC<
   minRows = 1,
   maxRows = 10,
   onKeyDown,
+  contentEditableRef,
 }) => {
   const [rows, setRows] = useState(minRows);
-  const contentEditableRef = useRef<HTMLDivElement>(null);
+  //const contentEditableRef = useRef<HTMLDivElement>(null);
   //const [cursorPosition, setCursorPosition] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -68,7 +69,7 @@ export const ExpandingContentEditable: React.FC<
   const debouncedUpdate = useCallback(
     debounce((value, cursorPos) => {
       processContent(value, cursorPos);
-    }, 700),
+    }, 300),
     []
   );
 
@@ -86,14 +87,7 @@ export const ExpandingContentEditable: React.FC<
   const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
     adjustContentEditableHeight();
     const newContent = e.target.innerText;
-    console.log("InnerText: ", newContent);
-    console.log("Value: ", value);
-    //Get and set current cursor position
-    const selection = window.getSelection();
-    console.log("Selection: ", selection);
-    //const cursorPos = selection?.focusOffset || 0;
     const cursorPos = getGlobalCursorPosition(contentEditableRef.current);
-    console.log("CursorPos: ", cursorPos);
 
     debouncedUpdate(newContent, cursorPos);
   };
@@ -161,7 +155,7 @@ export const ExpandingContentEditable: React.FC<
         selection.removeAllRanges();
         selection.addRange(range);
         timeoutRef.current = null;
-      }, 0);
+      }, 1);
     },
     [onChange]
   );

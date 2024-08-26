@@ -16,6 +16,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
   const chatOutputRef = useRef<HTMLDivElement | null>(null);
   const controllerRef = useRef(null);
   const chatRef = useRef(null);
+  const contentEditableRef = useRef<HTMLDivElement>(null);
   const { updateChatEntry, modelName } = useChatContext();
 
   const handleInputChange = (value: string) => {
@@ -28,7 +29,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
 
   //On Sending Message to LLM API
   const handleSubmit = useCallback(async () => {
-    const inputMessage = inputText.trim();
+    const inputMessage = contentEditableRef?.current.innerText.trim();
     if (!inputMessage) return;
     console.log(`Sending Prompt for ${chat.id}: `, { inputText });
     // Add chat submission logic here
@@ -147,6 +148,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder=""
+          contentEditableRef={contentEditableRef}
         />
         <Button
           className="rounded-2xl"
