@@ -110,25 +110,11 @@ export const ExpandingContentEditable: React.FC<
         clearTimeout(timeoutRef.current);
       }
       const sanitizedContent = DOMPurify.sanitize(text);
-      //const sanitizedContent = text;
-      //const words = sanitizedContent.split(/\s+/);
-
-      // //Logic to parse the content and highlight the relevant words
-      // const processedText = words
-      //   .map((word) => {
-      //     if (word.trim().length > 5) {
-      //       return `<span class="cursor-pointer underline text-blue-600">${word}</span>`;
-      //     }
-      //     return word;
-      //   })
-      //   .join(" ");
-
-      // //Add a space to the end of the processed text because the split and search removed spaces
-      // const finalContent = processedText + " ";
       const finalContent = highlightSixLetterAndMoreWords(sanitizedContent);
 
       onChange(finalContent);
 
+      //The following restores cursor position after the content is processed
       timeoutRef.current = setTimeout(() => {
         if (text === "") {
           console.log("early timeout return");
@@ -148,9 +134,9 @@ export const ExpandingContentEditable: React.FC<
         let currentOffset = 0;
 
         while (currentNode) {
-          console.log("Current position:", cursorPos);
-          console.log("CurrentNode: ", currentNode);
-          console.log("CurrentoffSet: ", currentOffset);
+          // console.log("Current position:", cursorPos);
+          // console.log("CurrentNode: ", currentNode);
+          // console.log("CurrentoffSet: ", currentOffset);
           if (currentNode.nodeType === Node.TEXT_NODE) {
             //If cursor position falls within the text node, set range for start and end otherwise add length of the content to offset
             if (currentOffset + currentNode.textContent.length >= cursorPos) {
@@ -171,7 +157,6 @@ export const ExpandingContentEditable: React.FC<
           }
           currentNode = currentNode.nextSibling;
         }
-        console.log("Range: ", range);
 
         selection.removeAllRanges();
         selection.addRange(range);
@@ -184,7 +169,19 @@ export const ExpandingContentEditable: React.FC<
   const handlePaste = (event) => {
     event.preventDefault();
     const text = event.clipboardData.getData("text/plain");
-    document.execCommand("insertText", false, text);
+
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    selection.deleteFromDocument();
+    const range = selection.getRangeAt(0);
+    const textNode = document.createTextNode(text);
+    range.insertNode(textNode);
+    range.setStartAfter(textNode);
+    range.setEndAfter(textNode);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    handleInput(event);
   };
 
   //Cleanup any timeouts from processText on unmount

@@ -16,7 +16,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
   const chatOutputRef = useRef<HTMLDivElement | null>(null);
   const controllerRef = useRef(null);
   const chatRef = useRef(null);
-  const { updateChatEntry } = useChatContext();
+  const { updateChatEntry, modelName } = useChatContext();
 
   const handleInputChange = (value: string) => {
     setInputText(value);
@@ -47,8 +47,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
     console.log(lmClient);
     try {
       const stream = await lmClient.chat.completions.create({
-        model:
-          "TheBloke/Mistral-7B-Instruct-v0.2-GGUF/mistral-7b-instruct-v0.2.Q6_K.gguf",
+        model: modelName,
         messages: userMessageWithContext,
         stream: true,
         temperature: 0.7,

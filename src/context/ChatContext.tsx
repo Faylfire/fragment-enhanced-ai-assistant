@@ -15,6 +15,8 @@ import { dummyChats } from "@/lib/sharedConstants";
 const ChatContext = createContext();
 const chatListRef = ref(database, `${collectionName}/chats`);
 const chatContentRef = ref(database, `${collectionName}/chatContent`);
+const modelName =
+  "TheBloke/Mistral-7B-Instruct-v0.2-GGUF/mistral-7b-instruct-v0.2.Q6_K.gguf";
 
 export const ChatProvider = ({ children }) => {
   const [chat, setChat] = useState({
@@ -85,6 +87,7 @@ export const ChatProvider = ({ children }) => {
         currentChatTabs,
         updateChatEntry,
         removeChat,
+        modelName,
       }}
     >
       {children}
