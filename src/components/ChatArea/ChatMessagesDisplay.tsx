@@ -94,7 +94,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
       console.log(chatRef.current);
       updateChatEntry(chat.id, chatRef.current);
     }
-  }, []);
+  }, [inputText]);
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -170,5 +170,13 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder="How can I help you?"
+        />
+
+                <ExpandingContentEditable
+          className="rounded-2xl w-full"
+          value={inputText}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          placeholder=""
         />
         */

@@ -28,3 +28,74 @@ export function getFirstSentence(text) {
 export function simpleIsEqual(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
+
+function splitTextOnSpace(text) {
+  // Split text on whitespace
+  const words = text.split(/\s+/);
+  // Define punctuation pattern
+
+  return words;
+}
+
+// function splitWordWithPunctuation(text) {
+//   const pattern = /(["',.:;?!(){}\[\]]*)([\w']+)(["',.:;?!(){}\[\]]*)/g;
+//   let parts = [];
+//   let match;
+//   while ((match = pattern.exec(text)) !== null) {
+//     parts.push(match[1]); // Leading punctuation
+//     parts.push(match[2]); // Word
+//     parts.push(match[3]); // Trailing punctuation
+//   }
+//   return parts.filter((part) => part); // Filter out empty parts
+// }
+
+function splitWordWithPunctuation(text) {
+  const pattern = /(["',.:;?!(){}\[\]]+)|([\w']+)/g;
+  let parts = [];
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    if (match[1]) {
+      parts.push(match[1]); // Punctuation
+    } else if (match[2]) {
+      parts.push(match[2]); // Word
+    }
+  }
+  return parts;
+}
+
+function shouldHighlight(word: string): boolean {
+  //This function is the logic for if a word should be highlighted
+  return word.trim().length > 5;
+}
+
+function testWordParts(parts) {
+  return parts
+    .map((part) => {
+      if (/[\w']+/.test(part)) {
+        //Logic for checking if the word should be wrapped in a span
+        if (shouldHighlight(part)) {
+          return `<span class="cursor-pointer underline text-blue-600">${part}</span>`;
+        }
+      }
+      return part;
+    })
+    .join("");
+}
+
+function wrapWordsInSpan(words) {
+  const nbsp = String.fromCharCode(160);
+  const processedWords = words
+    .map((word) => {
+      return testWordParts(splitWordWithPunctuation(word));
+    })
+    .join(" ")
+    .trim();
+
+  const finalContent = `${processedWords}${nbsp}`;
+  return finalContent;
+}
+
+export function highlightSixLetterAndMoreWords(text) {
+  const words = splitTextOnSpace(text);
+  return wrapWordsInSpan(words);
+}
