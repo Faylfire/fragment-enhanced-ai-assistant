@@ -93,9 +93,10 @@ export function highlightSixLetterAndMoreWords(text) {
 export function highlightKeywordsFromCollection(
   text: string,
   keywordColors = {
-    quick: "red-600",
-    fox: "blue-600",
-    "The Orb": "indigo-600",
+    quick: "text-red-600",
+    fox: "text-blue-600",
+    "The Orb": "text-indigo-600",
+    "Jarn Smith": "text-green-600",
   }
 ) {
   const nbsp = String.fromCharCode(160);
@@ -107,12 +108,35 @@ export function highlightKeywordsFromCollection(
   return "";
 }
 
+function highlightKeywordsChineseSupport(
+  text: string,
+  keywordColors: Record<string, string>
+) {
+  //This functionality requires addtional work, does not detect chinese in the middle of a sentence only at beginnings
+  const keywords = Object.keys(keywordColors);
+  const pattern = new RegExp(
+    `(${keywords.map(escapeRegExp).join("|")})|([\\u4e00-\\u9fff]+)`,
+    "gu"
+  );
+  return text.replace(pattern, (match) => {
+    const color = keywordColors[match];
+    if (color) {
+      return `<span class="cursor-pointer underline decoration-dotted font-bold ${color}">${match}</span>`;
+    }
+    return match;
+  });
+}
+
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function highlightKeywords(text, keywordColors) {
   const keywords = Object.keys(keywordColors);
   const pattern = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
   return text.replace(pattern, (match) => {
     const color = keywordColors[match];
-
-    return `<span class="cursor-pointer underline decoration-dotted text-${color}">${match}</span>`;
+    const styles = `cursor-pointer underline decoration-dotted font-bold ${color}`;
+    return `<span class="${styles}">${match}</span>`;
   });
 }

@@ -2,10 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import DOMPurify from "dompurify";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import {
-  highlightSixLetterAndMoreWords,
-  highlightKeywordsFromCollection,
-} from "@/lib/utils";
+import { highlightKeywordsFromCollection } from "@/lib/utils";
 
 interface ExpandingContentEditableProps {
   placeholder?: string;
@@ -107,6 +104,7 @@ export const ExpandingContentEditable: React.FC<
         clearTimeout(timeoutRef.current);
       }
       const sanitizedContent = DOMPurify.sanitize(text);
+      //const sanitizedContent = text;
       //const finalContent = highlightSixLetterAndMoreWords(sanitizedContent);
       const finalContent = highlightKeywordsFromCollection(sanitizedContent);
 
@@ -161,7 +159,7 @@ export const ExpandingContentEditable: React.FC<
         timeoutRef.current = null;
       }, 1);
     },
-    [onChange]
+    [onChange, contentEditableRef]
   );
 
   const handlePaste = (event) => {
