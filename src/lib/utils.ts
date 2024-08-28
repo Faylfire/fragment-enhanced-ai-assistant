@@ -90,24 +90,7 @@ export function highlightSixLetterAndMoreWords(text) {
   return wrapWordsInSpan(words);
 }
 
-export function highlightKeywordsFromCollection(
-  text: string,
-  keywordColors = {
-    quick: "text-red-600",
-    fox: "text-blue-600",
-    "The Orb": "text-indigo-600",
-    "Jarn Smith": "text-green-600",
-  }
-) {
-  const nbsp = String.fromCharCode(160);
-  if (text?.length > 0) {
-    const highlightedText = highlightKeywords(text, keywordColors).trim();
-    const finalContent: string = `${highlightedText}${nbsp}`;
-    return finalContent;
-  }
-  return "";
-}
-
+//Chinese Support filtering function using regex pattern
 function highlightKeywordsChineseSupport(
   text: string,
   keywordColors: Record<string, string>
@@ -129,14 +112,4 @@ function highlightKeywordsChineseSupport(
 
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function highlightKeywords(text, keywordColors) {
-  const keywords = Object.keys(keywordColors);
-  const pattern = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
-  return text.replace(pattern, (match) => {
-    const color = keywordColors[match];
-    const styles = `cursor-pointer underline decoration-dotted font-bold ${color}`;
-    return `<span class="${styles}">${match}</span>`;
-  });
 }

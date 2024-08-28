@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import DOMPurify from "dompurify";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { highlightKeywordsFromCollection } from "@/lib/utils";
+import { useFormContext } from "@/context/FormContext";
 
 interface ExpandingContentEditableProps {
   placeholder?: string;
@@ -36,9 +36,8 @@ export const ExpandingContentEditable: React.FC<
   contentEditableRef,
 }) => {
   const [rows, setRows] = useState(minRows);
-  //const contentEditableRef = useRef<HTMLDivElement>(null);
-  //const [cursorPosition, setCursorPosition] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { highlightKeywordsFromCollection } = useFormContext();
 
   const adjustContentEditableHeight = () => {
     const div = contentEditableRef.current;
