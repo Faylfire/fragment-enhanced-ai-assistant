@@ -29,6 +29,8 @@ export function simpleIsEqual(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
+//----------------------------------------------------------------
+//The following set of functions filters for words that are in
 function splitTextOnSpace(text) {
   // Split text on whitespace
   const words = text.split(/\s+/);
@@ -36,18 +38,6 @@ function splitTextOnSpace(text) {
 
   return words;
 }
-
-// function splitWordWithPunctuation(text) {
-//   const pattern = /(["',.:;?!(){}\[\]]*)([\w']+)(["',.:;?!(){}\[\]]*)/g;
-//   let parts = [];
-//   let match;
-//   while ((match = pattern.exec(text)) !== null) {
-//     parts.push(match[1]); // Leading punctuation
-//     parts.push(match[2]); // Word
-//     parts.push(match[3]); // Trailing punctuation
-//   }
-//   return parts.filter((part) => part); // Filter out empty parts
-// }
 
 function splitWordWithPunctuation(text) {
   const pattern = /(["',.:;?!(){}\[\]]+)|([\w']+)/g;
@@ -98,4 +88,31 @@ function wrapWordsInSpan(words) {
 export function highlightSixLetterAndMoreWords(text) {
   const words = splitTextOnSpace(text);
   return wrapWordsInSpan(words);
+}
+
+export function highlightKeywordsFromCollection(
+  text: string,
+  keywordColors = {
+    quick: "red-600",
+    fox: "blue-600",
+    "The Orb": "indigo-600",
+  }
+) {
+  const nbsp = String.fromCharCode(160);
+  if (text?.length > 0) {
+    const highlightedText = highlightKeywords(text, keywordColors).trim();
+    const finalContent: string = `${highlightedText}${nbsp}`;
+    return finalContent;
+  }
+  return "";
+}
+
+function highlightKeywords(text, keywordColors) {
+  const keywords = Object.keys(keywordColors);
+  const pattern = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
+  return text.replace(pattern, (match) => {
+    const color = keywordColors[match];
+
+    return `<span class="cursor-pointer underline text-${color}">${match}</span>`;
+  });
 }
