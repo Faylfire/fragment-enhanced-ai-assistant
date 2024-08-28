@@ -11,8 +11,6 @@ import { ChatProvider } from "@/context/ChatContext";
 import { dummyChats } from "@/lib/sharedConstants";
 
 function Header() {
-  //NOTE: Clean up this longArray, this is for visualization and will be removed
-  const longArray = new Array(100).fill(0);
   return (
     <FormProvider>
       <Tabs defaultValue="collections" className="w-full">
@@ -48,19 +46,3 @@ function Header() {
 }
 
 export default Header;
-
-/*
-<ScrollArea className="h-screen rounded-md border">
-                  <div className="pb-[150px] pt-[10px]">
-                    {chat.chatContent.map((line:ChatMessage, index:number)=>{
-                        return (
-                          <div className={`m-2`} key={`${chat.id}-${index}`}>
-                            <p className={`px-2 ${line.role!=='user'?'text-right':'text-left'}`}>{`${line.role}`}</p>
-                            <p className='p-2 rounded-xl bg-muted'>{`${line.content}`}</p>
-                          </div>
-                        )
-                    })}
-                  </div>
-                <ScrollBar orientation="vertical" />
-                </ScrollArea>
-                */

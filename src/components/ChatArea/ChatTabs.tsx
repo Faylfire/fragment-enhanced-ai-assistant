@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import NavBar from './NavBar';
-//import TopicList from './TopicList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChatList, ChatMessage, ChatEntry } from "@/types/types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";

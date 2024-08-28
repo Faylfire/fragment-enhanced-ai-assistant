@@ -53,11 +53,3 @@ function ChatArea() {
 }
 
 export default ChatArea;
-
-/*
-<Button onClick={()=>console.log(chatList)} >Add Chat</Button>
-                <Button onClick={()=>{
-                    chatList.push(newChat)
-                    console.log(chatList.length)
-                    
-                    }} >Add Chat</Button>*/

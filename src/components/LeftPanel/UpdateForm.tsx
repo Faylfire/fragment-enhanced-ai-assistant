@@ -73,8 +73,6 @@ export default function UpdateForm({ setOpen, entryContent, entryID }) {
     setFormData((prev) => ({ ...prev, ["type"]: value }));
   };
 
-  //NOTE: Remove const dummyArray = ["a", "bell", "c", "d"];
-
   return (
     <div className="relative hidden flex-col items-start gap-8 md:flex">
       <form className="grid w-full items-start gap-4">

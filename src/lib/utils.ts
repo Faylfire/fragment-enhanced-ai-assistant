@@ -113,6 +113,6 @@ function highlightKeywords(text, keywordColors) {
   return text.replace(pattern, (match) => {
     const color = keywordColors[match];
 
-    return `<span class="cursor-pointer underline text-${color}">${match}</span>`;
+    return `<span class="cursor-pointer underline decoration-dotted text-${color}">${match}</span>`;
   });
 }
