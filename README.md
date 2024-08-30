@@ -1,6 +1,6 @@
-# Fragment Enhanced Chat with History
+# Automatic Entry Enhanced Chat with History
 
-This is a simple implementation of a concept for 'fragment' or topical entry enhanced chat with history.
+This is an implementation of a concept for user provided 'fragment' or topical entry enhanced AI Chat Assistant. 
 
 The project is using React with Typescript and Vite along with Shadcn and tailwind.
 
@@ -20,6 +20,8 @@ Features:
 - Allow for selection of different AI API's currently only Lmstudio local is available
 - Allow for multiple projects with their own collections of entries and chats
 - Markdown chat display fields for better user experience and also better formatting of the prompt output
+- Fine Tuned Models
+- RAG implementation for enhanced AI responses
 
 
 Functionality:
@@ -63,7 +65,8 @@ src/
 Issues and Bugs:
 7/30/2024 - Using Tailwind "tw-" prefix introduces issues with shadcn, removal restores expected behavior
 8/9/2024 - Scrolling/Panel dynamic length caused visual issues, solved with .no-scroll on the application body, all scrolling will be internal to the elements of the application.
-8/28/2024 - Fixed text color for seleted text not showing on load by adding text- to the full keyword: color object {"keyword": "text-blue-600"} instead of just "blue" or "blue-600"
+8/28/2024 - Fixed text color for selected text not showing on load by adding text- to the full keyword: color object {"keyword": "text-blue-600"} instead of just "blue" or "blue-600"
+8/29/2024 - Fixed issue that on load and newly created entries that highlightKeywords do not appear to function and have to wait for a re-render this has to do with the async nature of useState, using useRef for instant update for this functionality.
 
 
 Components to be used:
