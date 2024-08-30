@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 import { Entry, EntryPlusID } from "@/types/types";
 import {
   fetchEntries,
@@ -29,7 +36,7 @@ export const FormProvider = ({ children }) => {
 
   const [entries, setEntries] = useState([]); //type EntryPlusID[]
   const [supportingEntryIds, setSupportingEntryIds] = useState(new Set()); //A set of all entry ids found in the prompt
-  const [keywordColors, setKeywordColors] = useState({});
+  const keywordColorsRef = useRef({});
 
   //NOTE: The following line for selectedEntry might not be needed
   //const [selectedEntry, setSelectedEntry] = useState({}); //type Entry
@@ -42,6 +49,10 @@ export const FormProvider = ({ children }) => {
     "trope",
     "other",
   ]); //type string
+
+  const updateKeywordColors = (newValue) => {
+    keywordColorsRef.current = newValue;
+  };
 
   const updateEntryData = async (updatedEntryID, updatedEntry: Entry) => {
     const foundEntry = entries.find((obj) => obj.id === updatedEntryID);
@@ -102,7 +113,7 @@ export const FormProvider = ({ children }) => {
         }
         console.log("dataEntries: ", dataEntries);
         console.log("keywords: ", keywords);
-        setKeywordColors(keywords);
+        updateKeywordColors(keywords);
         setEntries(dataEntries);
       }
     };
@@ -142,30 +153,21 @@ export const FormProvider = ({ children }) => {
   };
 
   //----------------------------------------------------------------
-  //Select the relevant keywords and return the wrapped text
-  function highlightKeywordsFromCollection(text: string) {
-    const nbsp = String.fromCharCode(160);
-    if (text?.length > 0) {
-      const highlightedText = highlightKeywords(text).trim();
-      const finalContent: string = `${highlightedText}${nbsp}`;
-      return finalContent;
-    }
-    return "";
-  }
-
   //Highlight keywords logic (English only)
-  function highlightKeywords(text) {
+  const highlightKeywords = useCallback((text) => {
     //Get Keywords for Matching returns an array [] of keywords
-    const keys = Object.keys(keywordColors);
+    console.log("KeywordColors: ", keywordColorsRef.current);
+    const keys = Object.keys(keywordColorsRef.current);
     const keywords = keys.sort().reverse();
+    console.log(keywords);
     //Form a pattern that has word boundaries that will not detect partial words like quick in quickly
     const pattern = new RegExp(`\\b(${keywords.join("|")}|\\S+)\\b`, "g");
     const selectedEntryIds = new Set(); //Stores the unique Ids for selected Keywords
 
     const highlightedText = text.replace(pattern, (match) => {
       //If there is a match, then try to get the color and id
-      const color = keywordColors[match]?.color;
-      const id = keywordColors[match]?.id;
+      const color = keywordColorsRef.current[match]?.color;
+      const id = keywordColorsRef.current[match]?.id;
       //If the match does not result in a color, indicating that the match was not correct, then do not replace.
       if (color) {
         if (id) {
@@ -180,10 +182,22 @@ export const FormProvider = ({ children }) => {
     setSupportingEntryIds(selectedEntryIds);
 
     return highlightedText;
-  }
-  //----------------------------------------------------------------
+  }, []);
 
-  function getWrapPromptKeywords() {}
+  //Select the relevant keywords and return the wrapped text
+  const highlightKeywordsFromCollection = useCallback(
+    (text: string) => {
+      const nbsp = String.fromCharCode(160);
+      if (text?.length > 0) {
+        const highlightedText = highlightKeywords(text).trim();
+        const finalContent: string = `${highlightedText}${nbsp}`;
+        return finalContent;
+      }
+      return "";
+    },
+    [highlightKeywords]
+  );
+  //----------------------------------------------------------------
 
   return (
     <FormContext.Provider
