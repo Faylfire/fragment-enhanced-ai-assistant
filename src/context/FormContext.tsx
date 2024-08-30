@@ -28,6 +28,8 @@ export const FormProvider = ({ children }) => {
   }); //Type Entrys
 
   const [entries, setEntries] = useState([]); //type EntryPlusID[]
+  const [supportingEntryIds, setSupportingEntryIds] = useState(new Set()); //A set of all entry ids found in the prompt
+  const [keywordColors, setKeywordColors] = useState({});
 
   //NOTE: The following line for selectedEntry might not be needed
   //const [selectedEntry, setSelectedEntry] = useState({}); //type Entry
@@ -36,8 +38,8 @@ export const FormProvider = ({ children }) => {
     "character",
     "location",
     "lore",
-    "guidelines",
-    "tropes",
+    "guideline",
+    "trope",
     "other",
   ]); //type string
 
@@ -53,14 +55,32 @@ export const FormProvider = ({ children }) => {
     } else {
       console.log("Did not find entry with id for update");
     }
-    /*
-    setEntries((prevEntries) =>
-      prevEntries.map((eachEntry) =>
-        eachEntry.id === updatedEntry.id ? updatedEntry : eachEntry
-      )
-    );
-    */
   };
+
+  function getFormattedKeywords(item: Entry) {
+    const typeColors = {
+      character: "text-indigo-600",
+      location: "text-emerald-600",
+      lore: "text-amber-600",
+      guideline: "text-sky-600",
+      trope: "text-fuchsia-600",
+      other: "text-slate-600",
+    };
+    const keywords = {};
+    const id = item.id;
+    const color = typeColors[item.content.type];
+
+    keywords[item.content.title] = { id: id, color: color };
+    const hasAlias = Boolean(item?.content.alias);
+    if (hasAlias) {
+      //split on comma then iterate through and push keywords.
+      const aliases = item.content.alias.split(",");
+      aliases.forEach((alias) => {
+        keywords[alias.trim()] = { id: id, color: color };
+      });
+    }
+    return keywords;
+  }
 
   //Subscribing to onValue change for Collection entries
   useEffect(() => {
@@ -69,13 +89,20 @@ export const FormProvider = ({ children }) => {
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val());
         const dataEntries: EntryPlusID[] = [];
+        let keywords = {};
+
         console.log(data);
         for (let item of data) {
-          console.log(item[0]);
-          console.log(item[1]);
-          dataEntries.push({ id: item[0], content: item[1].content });
+          //console.log(item[0]);
+          //console.log(item[1]);
+          let formattedEntryItem = { id: item[0], content: item[1].content };
+          let formattedKeywords = getFormattedKeywords(formattedEntryItem);
+          keywords = { ...keywords, ...formattedKeywords };
+          dataEntries.push(formattedEntryItem);
         }
         console.log("dataEntries: ", dataEntries);
+        console.log("keywords: ", keywords);
+        setKeywordColors(keywords);
         setEntries(dataEntries);
       }
     };
@@ -92,7 +119,6 @@ export const FormProvider = ({ children }) => {
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val());
         const types = [];
-        console.log(data);
         for (let item of data) {
           types.push(item[1]);
         }
@@ -117,19 +143,10 @@ export const FormProvider = ({ children }) => {
 
   //----------------------------------------------------------------
   //Select the relevant keywords and return the wrapped text
-  function highlightKeywordsFromCollection(
-    text: string,
-    keywordColors = {
-      quick: "text-red-600",
-      fox: "text-blue-600",
-      "The Orb": "text-indigo-600",
-      Jarn: "text-green-600",
-      "Jarn Smith": "text-green-600",
-    }
-  ) {
+  function highlightKeywordsFromCollection(text: string) {
     const nbsp = String.fromCharCode(160);
     if (text?.length > 0) {
-      const highlightedText = highlightKeywords(text, keywordColors).trim();
+      const highlightedText = highlightKeywords(text).trim();
       const finalContent: string = `${highlightedText}${nbsp}`;
       return finalContent;
     }
@@ -137,18 +154,36 @@ export const FormProvider = ({ children }) => {
   }
 
   //Highlight keywords logic (English only)
-  function highlightKeywords(text, keywordColors) {
+  function highlightKeywords(text) {
     //Get Keywords for Matching returns an array [] of keywords
-    const keywords = Object.keys(keywordColors);
+    const keys = Object.keys(keywordColors);
+    const keywords = keys.sort().reverse();
     //Form a pattern that has word boundaries that will not detect partial words like quick in quickly
-    const pattern = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
-    return text.replace(pattern, (match) => {
-      const color = keywordColors[match];
-      const styles = `cursor-pointer underline decoration-dotted font-bold ${color}`;
-      return `<span class="${styles}">${match}</span>`;
+    const pattern = new RegExp(`\\b(${keywords.join("|")}|\\S+)\\b`, "g");
+    const selectedEntryIds = new Set(); //Stores the unique Ids for selected Keywords
+
+    const highlightedText = text.replace(pattern, (match) => {
+      //If there is a match, then try to get the color and id
+      const color = keywordColors[match]?.color;
+      const id = keywordColors[match]?.id;
+      //If the match does not result in a color, indicating that the match was not correct, then do not replace.
+      if (color) {
+        if (id) {
+          selectedEntryIds.add(id);
+        }
+        const styles = `cursor-pointer underline decoration-dotted font-bold ${color}`;
+        return `<span class="${styles}">${match}</span>`;
+      }
+      return match;
     });
+    console.log("Selected Keyword Ids: ", selectedEntryIds);
+    setSupportingEntryIds(selectedEntryIds);
+
+    return highlightedText;
   }
   //----------------------------------------------------------------
+
+  function getWrapPromptKeywords() {}
 
   return (
     <FormContext.Provider
@@ -159,6 +194,7 @@ export const FormProvider = ({ children }) => {
         updateEntryData,
         addEntryData,
         highlightKeywordsFromCollection,
+        supportingEntryIds,
       }}
     >
       {children}
@@ -173,3 +209,13 @@ export const useFormContext = () => {
   }
   return context;
 };
+
+/*
+{
+    character: { id: 1, color: "text-indigo-600" },
+    location: { id: 2, color: "text-emerald-600" },
+    lore: { id: 3, color: "text-amber-600" },
+    fox: { id: 1, color: "text-indigo-600" },
+    Jarn: { id: 2, color: "text-emerald-600" },
+    "Jarn Smith": { id: 3, color: "text-amber-600" },
+  }*/

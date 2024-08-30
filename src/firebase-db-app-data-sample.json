@@ -1,0 +1,203 @@
+{
+  "chats": {
+    "-O51PNYtm1jJWY9UG_sY": {
+      "chat": {
+        "chatContent": [
+          {
+            "content": "What is the capital of france?",
+            "role": "user"
+          },
+          {
+            "content": " The capital city of France is Paris. Paris is one of the most famous cities in the world and is known for its iconic landmarks such as the Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, and Montmartre. It is also the most populous city in France and is home to many important cultural institutions and historic sites.",
+            "role": "assistant"
+          },
+          {
+            "content": "short answers what is the capital of germany",
+            "role": "user"
+          },
+          {
+            "content": " The capital city of Germany is Berlin. Berlin is the largest city in Germany by both population and area, and it is the center of the country's politics, culture, media, and science. It is known for its rich history, diverse architecture, vibrant arts scene, and numerous museums and galleries.",
+            "role": "assistant"
+          },
+          {
+            "content": "Use short answers, what is the capital of China",
+            "role": "user"
+          },
+          {
+            "content": " The capital city of China is Beijing. Beijing is one of the oldest cities in the world with a rich cultural heritage dating back over 3,000 years. It is the political, cultural, and economic center of China and is home to many famous landmarks including the Forbidden City, Temple of Heaven, Great Wall of China, and Tiananmen Square.",
+            "role": "assistant"
+          },
+          {
+            "content": "The capital city of France is Paris. Paris is one of the most famous cities in the world and fox is known for its iconic landmarks such as the Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, and Montmartre. It is also the most populous city in France and is home to many important cultural institutions and historic sites.",
+            "role": "user"
+          }
+        ],
+        "chatID": "chat-1724469606557",
+        "chatTitle": "New Chat",
+        "id": "-O51PNYtm1jJWY9UG_sY"
+      }
+    },
+    "-O5AQTjN0g9yq7l2vvpA": {
+      "chat": {
+        "chatContent": [
+          {
+            "content": "Short <span class=\"cursor-pointer underline text-blue-600\">answers</span> what is the <span class=\"cursor-pointer underline text-blue-600\">capital</span> of <span class=\"cursor-pointer underline text-blue-600\">Nigeria</span>",
+            "role": "user"
+          },
+          {
+            "content": " The capital city of Nigeria is Abuja.",
+            "role": "assistant"
+          },
+          {
+            "content": "Why is this not <span class=\"cursor-pointer underline text-blue-600\">working</span>",
+            "role": "user"
+          },
+          {
+            "content": " I'm an AI language model and don't have the ability to directly interact with web pages or applications. However, I can help explain why the code you provided might not be working based on common issues.\n\nIn this case, it appears that there are HTML tags within the text you want me to respond to. This could potentially cause issues for text-to-speech systems or other automated tools, as they may not correctly interpret the formatting. To ensure accurate responses, it's best to keep the input text plain and free of any special formatting.\n\nInstead of using `<span class=\"cursor-pointer underline text-blue-600\">`, you could use plain text with italics or bold for emphasis:\n\n_What is the capital of Nigeria?_\n\nOr,\n\n**What is the capital city of Nigeria?**\n\nMy response would then be:\n\nThe capital city of Nigeria is Abuja.",
+            "role": "assistant"
+          },
+          {
+            "content": "short <span class=\"cursor-pointer underline text-blue-600\">answer</span>, what is the <span class=\"cursor-pointer underline text-blue-600\">capital</span> of <span class=\"cursor-pointer underline text-blue-600\">france</span>",
+            "role": "user"
+          },
+          {
+            "content": "short <span class=\"cursor-pointer underline text-blue-600\">answer</span> is what is the <span class=\"cursor-pointer underline text-blue-600\">capital</span> of",
+            "role": "user"
+          },
+          {
+            "content": "Short answers, what is the capital of China",
+            "role": "user"
+          },
+          {
+            "content": "Write a story about Jarn, and Blu on Earth in Dairres using the 12SB and LAFS trope. The LAFS trope is to be used sparingly and the 12 Story Beats, should be followed. Jarn Smith is the main character but should not have too much of plot armor, should be Jackson Lee will be a side character who will disrupt their story.",
+            "role": "user"
+          },
+          {
+            "content": "Write a story about Jarn, and Blu on Earth in Dairres",
+            "role": "user"
+          },
+          {
+            "content": "Continue to write 400 words about Jarn and Marns as they travel to H-city.",
+            "role": "user"
+          }
+        ],
+        "chatID": "chat-1724620982441",
+        "chatTitle": "New Chat 2",
+        "id": "-O5AQTjN0g9yq7l2vvpA"
+      }
+    }
+  },
+  "content": {
+    "-O43qVyxuTF2bcIpzdhH": {
+      "content": {
+        "alias": "Globe",
+        "description": "This is home",
+        "tags": "Home",
+        "title": "Earth",
+        "type": "location"
+      }
+    },
+    "-O43w8gKPR-E-cbTasbm": {
+      "content": {
+        "alias": "JS, Johnny, Jarn",
+        "description": "Winged judge, went through a window",
+        "tags": "Smithsonian",
+        "title": "Jarn Smith",
+        "type": "character"
+      }
+    },
+    "-O461YJnINv6RAzn4Xh9": {
+      "content": {
+        "alias": "Marns, Nie, Blu",
+        "description": "A friend to Jarn, a friend to us all",
+        "tags": "Friend",
+        "title": "Marnie Blue",
+        "type": "character"
+      }
+    },
+    "-O46n-ISejz4mcIr4JHP": {
+      "content": {
+        "alias": "Lum",
+        "description": "A creature of light and imagination. And of the moon",
+        "tags": "Moonie",
+        "title": "Lumin",
+        "type": "character"
+      }
+    },
+    "-O470gaiC7XqaGwkPnsv": {
+      "content": {
+        "alias": "Tale",
+        "description": "This is a long story, rather it is a short story: maybe it is a medium story, what do you think it is? Haha. There's more.",
+        "tags": "Story",
+        "title": "The Story",
+        "type": "lore"
+      }
+    },
+    "-O475qRseh6g-68BSEwj": {
+      "content": {
+        "alias": "Mela",
+        "description": "A lovely citizen of the country of France. And more...and more",
+        "notes": "",
+        "tags": "M",
+        "title": "Mel Mel",
+        "type": "character"
+      }
+    },
+    "-O47M0Y2OlZfd297vL21": {
+      "content": {
+        "alias": "Dair",
+        "description": "This is a town much like any other, imaginary, but real it it's own way. From Dallas.",
+        "tags": "Town",
+        "title": "Dairres",
+        "type": "location"
+      }
+    },
+    "-O47NPVwhvag1B6JwONp": {
+      "content": {
+        "alias": "LAFS",
+        "description": "Love at first sight is almost a laughable trope, yet is a powerful one. One can be instantly attracted, or if one believes in past lives and the wheel.",
+        "notes": "",
+        "tags": "Love, Romance",
+        "title": "Love At First Sight",
+        "type": "trope"
+      }
+    },
+    "-O47mc9pnGQBfBc5K5CT": {
+      "content": {
+        "alias": "Jack, JL",
+        "description": "A side character, but one that is very very hard to kill. He has many sides, and many faces, a jack and a lee. ",
+        "notes": "",
+        "tags": "Lee",
+        "title": "Jackson Lee",
+        "type": "character"
+      }
+    },
+    "-O4cNWSD7BdxbtP-F6o0": {
+      "content": {
+        "alias": "City",
+        "description": "This is a city that begins with the letter H and is on the coast and is very hot and humid but a great icon of the land lives there with the name Leyonbe.\n\n",
+        "notes": "",
+        "tags": "Somethere here",
+        "title": "H-city",
+        "type": "location"
+      }
+    },
+    "-O5QwF1GW1P8greEHVTc": {
+      "content": {
+        "alias": "12SB, SB12",
+        "description": "\t1. Introduce Main Character\nWho is your protagonist, provide a looking into the character and their normal setting and motivations.\n\n\t2. Introduce Main Character Love interest\nWho is their love interest, provide a look into the love interest and their normal setting and motivations\n\n\t3. Meet Cute\nHow do the two characters meet for the first time, under what circumstances or happenstance did this occur?\n\n\t4. The No Way\nWhat's going to keep these lovebirds apart? Take into consideration their backgrounds and motivations. Which is to say, both internal and external forces that keeps them apart.\n\n\t5. Turning Point\nWhat's the point where there's no turning back from this?\n\n\t6. Raising the Stakes\nHow are you going to make them be more aware and become important to each other? What can you do to increase the tension? What information or actions can be revealed or performed to each of the characters that can increase their fondness of each other. \n\n\n\t7. Really No Way\nHow are they going to continue to fight this? Here can be the re-insertion of external and internal forces. A reminder from an external force of their duties or their core beliefs or unresolved troubles. \n\n\t8. Turning Point II\nLet's raise the stakes one more time.\n\n\t9. Crisis\nEverything is lost. The two characters just couldn't be in a worse state feeling that their love is never going to work and perhaps even executing plans to extract themselves from the situation forever.\n\n\t10. Happily Ever After\nThey've figured it out and everyone lives happily ever after (or for now)!",
+        "notes": "",
+        "tags": "Story Beats",
+        "title": "12 Story Beats",
+        "type": "guideline"
+      }
+    }
+  },
+  "typeList": ["character", "location", "lore", "guideline", "trope", "other"]
+}
+
+
+{
+    "role": "system",
+    "content": "You are an expert fiction writer. \nAlways keep the following rules in mind: \n- Write in past tense and use US English spelling, grammar, and colloquialisms/slang. \n- Write in active voice \n- Always follow the \"show, don't tell\" principle. \n- Avoid adverbs and cliches and overused/commonly used phrases. Ain for fresh and original descriptions. \n- Convey events and story through dialogue when possible.\n- Mix short, punchy sentences with long, descriptive ones. Drop fill words to add variety. \n- Skip \"he/she said said\" dialogue tags and convoy people's actions or face expressions through their speech \n- Avoid mushy dialogue and descriptions, have dialogue always continue the action, never stall or add unnecessary fluff. \n- Vary the descriptions to not repeat yourself. \n- Put dialogue on its own paragraph to separate scene and action. \n- Reduce indicators of uncertainty like 'trying\" or \"maybe\" \n\nTake into account the following characters/locations/lore/guideline/trope/other...: \n    {\"alias\":\"Mela\",\"description\":\"A lovely citizen of the country of France. And more...and more\",\"notes\":\"\",\"title\":\"Mel Mel\",\"type\":\"character\"}\n    {\"alias\":\"Dair\",\"description\":\"This is a town much like any other, imaginary, but real it it's own way. From Dallas.\",\"title\":\"Dairres\",\"type\":\"location\"}\n    {\"alias\":\"Marns, Nie, Blu\",\"description\":\"A friend to Jarn, a friend to us all\",\"title\":\"Marnie Blue\",\"type\":\"character\"}\n    {\"alias\":\"LAFS\",\"description\":\"Love at first sight is almost a laughable trope, yet is a powerful one. One can be instantly attracted, or if one believes in past lives and the wheel.\",\"notes\":\"\",\"title\":\"Love At First Sight\",\"type\":\"trope\"}\n    {\"alias\":\"12SB, SB12\",\"description\":\"\\t1. Introduce Main Character\\nWho is your protagonist, provide a looking into the character and their normal setting and motivations.\\n\\n\\t2. Introduce Main Character Love interest\\nWho is their love interest, provide a look into the love interest and their normal setting and motivations\\n\\n\\t3. Meet Cute\\nHow do the two characters meet for the first time, under what circumstances or happenstance did this occur?\\n\\n\\t4. The No Way\\nWhat's going to keep these lovebirds apart? Take into consideration their backgrounds and motivations. Which is to say, both internal and external forces that keeps them apart.\\n\\n\\t5. Turning Point\\nWhat's the point where there's no turning back from this?\\n\\n\\t6. Raising the Stakes\\nHow are you going to make them be more aware and become important to each other? What can you do to increase the tension? What information or actions can be revealed or performed to each of the characters that can increase their fondness of each other. \\n\\n\\n\\t7. Really No Way\\nHow are they going to continue to fight this? Here can be the re-insertion of external and internal forces. A reminder from an external force of their duties or their core beliefs or unresolved troubles. \\n\\n\\t8. Turning Point II\\nLet's raise the stakes one more time.\\n\\n\\t9. Crisis\\nEverything is lost. The two characters just couldn't be in a worse state feeling that their love is never going to work and perhaps even executing plans to extract themselves from the situation forever.\\n\\n\\t10. Happily Ever After\\nThey've figured it out and everyone lives happily ever after (or for now)!\",\"notes\":\"\",\"title\":\"12 Story Beats\",\"type\":\"guideline\"}"
+}

@@ -62,7 +62,6 @@ export const ChatProvider = ({ children }) => {
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val());
         const chatTabs = [];
-        console.log(data);
         for (let item of data) {
           chatTabs.push({ ...item[1].chat, id: item[0] });
         }

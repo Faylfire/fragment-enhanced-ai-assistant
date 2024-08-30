@@ -7,16 +7,27 @@ The project is using React with Typescript and Vite along with Shadcn and tailwi
 
 Todo:
 - UML sequence diagram for the basic use cases: Login/Auth(later), Add/Remove/Update Collection Entries, Update Chat Prompts and Responses.
-- Implement backend db connection according to the defined UML sequence diagrams
+- Implement backend db connection according to the defined UML sequence diagrams - done
 - 
 
 Features:
-- Integration with LMStudio API for AI (openai api)
-- Pull Collection Entries/Fragaments into AI prompt for more detailed and relevant queries
-- Allow for 'Asides' conversations that deviate from the original purpose but still relevant and pulled 'aside' as not to pollute the main conversation
-- A catalog of past chats/conversations
-- Additional features for enhanced workflows such as research and summary and distillation into collection Entries
-- Agentic features: Create a new project, agent creates collection entries, agent formulates story outline, agents create scenes, agents asks and advices on creative elements.
+- Integration with LMStudio API for AI (openai api) -done
+- Pull Collection Entries/Fragaments into AI prompt for more detailed and relevant queries -ongoing
+- Allow for 'Asides' conversations that deviate from the original purpose but still relevant and pulled 'aside' as not to pollute the main conversation - deferred phase 2
+- A catalog of past chats/conversations - done
+- Additional features for enhanced workflows such as research and summary and distillation into collection Entries - deferred
+- Agentic features: Create a new project, agent creates collection entries, agent formulates story outline, agents create scenes, agents asks and advices on creative elements. - deferred
+- Allow for selection of different AI API's currently only Lmstudio local is available
+- Allow for multiple projects with their own collections of entries and chats
+- Markdown chat display fields for better user experience and also better formatting of the prompt output
+
+
+Functionality:
+- Rename Chat Tabs
+- Redesign Chat LeftPanel display
+- Add Hoverable tips and snippets (requires more design)
+- Allow changing of the system prompt
+- 
 
 
 Originally Planned File Structure (Shadcn component files not shown):
@@ -52,10 +63,10 @@ src/
 Issues and Bugs:
 7/30/2024 - Using Tailwind "tw-" prefix introduces issues with shadcn, removal restores expected behavior
 8/9/2024 - Scrolling/Panel dynamic length caused visual issues, solved with .no-scroll on the application body, all scrolling will be internal to the elements of the application.
+8/28/2024 - Fixed text color for seleted text not showing on load by adding text- to the full keyword: color object {"keyword": "text-blue-600"} instead of just "blue" or "blue-600"
 
 
 Components to be used:
-div contenteditable
 Hover Card
 Skeleton
 toast
@@ -63,6 +74,7 @@ tooltip
 
 Components Added:
 Accordion
+div contenteditable
 
 ## Firebase API Reference
 

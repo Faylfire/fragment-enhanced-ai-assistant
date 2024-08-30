@@ -152,11 +152,10 @@ export const ExpandingContentEditable: React.FC<
           }
           currentNode = currentNode.nextSibling;
         }
-
         selection.removeAllRanges();
         selection.addRange(range);
         timeoutRef.current = null;
-      }, 1);
+      }, 0);
     },
     [onChange, contentEditableRef]
   );
@@ -206,6 +205,7 @@ export const ExpandingContentEditable: React.FC<
         onKeyDown={handleKeyDown}
         onPaste={handlePaste}
         onClick={showCursorPosition}
+        onFocus={adjustContentEditableHeight}
         className={cn(
           "resize-none overflow-y-auto w-full p-2 border rounded font-semibold text-background bg-muted-foreground placeholder-background/60",
           className
