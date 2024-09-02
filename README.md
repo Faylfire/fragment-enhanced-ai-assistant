@@ -1,14 +1,17 @@
-# Automatic Entry Enhanced Chat with History
+# ContextAlly - Interactive Atlas Entry Enhanced AI Chat Assistant
 
-This is an implementation of a concept for user provided 'fragment' or topical entry enhanced AI Chat Assistant. 
+This is an implementation of a concept for user provided 'fragment' or topical entry to be automatically provided as context to enhance AI interactions.
 
-The project is using React with Typescript and Vite along with Shadcn and tailwind.
+The Application consists primarily in the desktop version a workspace split into two partially adjustable columned panels. On the left are the listing of the context entries and past chats in a tabbed list. On the right is the chat interface that features an input box that will automatically detect and pull in relevant context (by the naming of the context title and user provided alias/nicknames).
+
+The project is using React with Typescript and Vite along with Shadcn and tailwind css.
 
 
 Todo:
 - UML sequence diagram for the basic use cases: Login/Auth(later), Add/Remove/Update Collection Entries, Update Chat Prompts and Responses.
 - Implement backend db connection according to the defined UML sequence diagrams - done
-- 
+- Input validation
+
 
 Features:
 - Integration with LMStudio API for AI (openai api) -done
@@ -28,8 +31,8 @@ Functionality:
 - Rename Chat Tabs
 - Redesign Chat LeftPanel display
 - Add Hoverable tips and snippets (requires more design)
-- Allow changing of the system prompt
-- 
+- Allow modification and saving of the system prompts for different aspects of the project
+- Add the ability to select enteries to Always be included in the prompts.
 
 
 Originally Planned File Structure (Shadcn component files not shown):

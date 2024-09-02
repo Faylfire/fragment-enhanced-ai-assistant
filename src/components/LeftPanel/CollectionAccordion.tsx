@@ -7,14 +7,108 @@ import {
 } from "@/components/ui/accordion";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Entry, EntryPlusID } from "@/types/types";
 import EntryDialogOpener from "@/components/LeftPanel/EntryDialogOpener";
 import UpdateDialogOpener from "@/components/LeftPanel/UpdateDialogOpener";
 import { useFormContext } from "@/context/FormContext";
 import { iconMap } from "@/lib/sharedConstants";
 import { capitalizeFirstLetter, getFirstSentence } from "@/lib/utils";
+import { Triangle } from "lucide-react";
 
+export default function CollectionAccordion() {
+  const { entries, typeList } = useFormContext();
+  let charList: EntryPlusID[] = [];
+
+  console.log("in Accordion--------");
+  useEffect(() => {
+    console.log("entries changed: ", entries);
+  }, [entries]);
+
+  function getEntriesFromType(type) {
+    const filteredEntries: EntryPlusID[] = entries.filter(
+      (entry) => entry?.content?.type === type
+    );
+    console.log(filteredEntries);
+    return filteredEntries;
+  }
+
+  return (
+    <>
+      <Accordion type="multiple" defaultValue={typeList} className="w-full">
+        {typeList.map((type) => {
+          const entriesOfType = getEntriesFromType(type);
+          if (entriesOfType.length !== 0) {
+            return (
+              <AccordionItem value={type} key={type}>
+                <div className="flex px-4 bg-primary-foreground">
+                  <div className="flex flex-grow items-center justify-between pr-2">
+                    <div className="font-bold">{`${capitalizeFirstLetter(
+                      type
+                    )} (${entriesOfType.length})`}</div>
+                    <EntryDialogOpener
+                      className="bg-primary-foreground"
+                      selection={type}
+                    />
+                  </div>
+                  <AccordionTrigger className="flex-none"></AccordionTrigger>
+                </div>
+                <AccordionContent
+                  className="p-0"
+                  key={`AccordionContent-${type}`}
+                >
+                  {entriesOfType.map((entry: Entry, index: number) => {
+                    const IconComponent = iconMap[type] || Triangle;
+                    const entryContent = entry.content;
+                    return (
+                      <UpdateDialogOpener
+                        entryContent={entryContent}
+                        entryID={entry.id}
+                        key={entry.id}
+                      >
+                        <div
+                          id={entry.id}
+                          className="flex items-center justify-around gap-4 hover:bg-highlight px-4 py-2 m-[1px] rounded-lg cursor-pointer"
+                        >
+                          <Avatar className="hidden h-9 w-9 sm:flex">
+                            <AvatarImage
+                              src={
+                                entryContent.avatar
+                                  ? entryContent.avatar
+                                  : "/avatars/01.png"
+                              }
+                              alt="Avatar"
+                            />
+                            <AvatarFallback>
+                              <IconComponent className="size-5" />
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="grid gap-1">
+                            <p className="text-sm font-medium leading-none">
+                              {entryContent.title}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {getFirstSentence(entryContent.description)}
+                            </p>
+                          </div>
+                          <div className="ml-auto font-sm">
+                            {entryContent.tags[0] ||
+                              entryContent.collectionType}
+                          </div>
+                        </div>
+                      </UpdateDialogOpener>
+                    );
+                  })}
+                </AccordionContent>
+              </AccordionItem>
+            );
+          }
+        })}
+      </Accordion>
+    </>
+  );
+}
+
+/*
 const characterList: Entry[] = [
   {
     collectionType: "character",
@@ -213,96 +307,4 @@ const locationList: Entry[] = [
     ],
   },
 ];
-
-export default function CollectionAccordion() {
-  const { entries, typeList } = useFormContext();
-  let charList: EntryPlusID[] = [];
-
-  console.log("in Accordion--------");
-  useEffect(() => {
-    console.log("entries changed: ", entries);
-  }, [entries]);
-
-  function getEntriesFromType(type) {
-    const filteredEntries: EntryPlusID[] = entries.filter(
-      (entry) => entry?.content?.type === type
-    );
-    console.log(filteredEntries);
-    return filteredEntries;
-  }
-
-  return (
-    <>
-      <Accordion type="multiple" defaultValue={typeList} className="w-full">
-        {typeList.map((type) => {
-          const entriesOfType = getEntriesFromType(type);
-          if (entriesOfType.length !== 0) {
-            return (
-              <AccordionItem value={type} key={type}>
-                <div className="flex px-4 bg-primary-foreground">
-                  <div className="flex flex-grow items-center justify-between pr-2">
-                    <div className="font-bold">{`${capitalizeFirstLetter(
-                      type
-                    )} (${entriesOfType.length})`}</div>
-                    <EntryDialogOpener
-                      className="bg-primary-foreground"
-                      selection={type}
-                    />
-                  </div>
-                  <AccordionTrigger className="flex-none"></AccordionTrigger>
-                </div>
-                <AccordionContent
-                  className="p-0"
-                  key={`AccordionContent-${type}`}
-                >
-                  {entriesOfType.map((entry: Entry, index: number) => {
-                    const IconComponent = iconMap[type] || Triangle;
-                    const entryContent = entry.content;
-                    return (
-                      <UpdateDialogOpener
-                        entryContent={entryContent}
-                        entryID={entry.id}
-                        key={entry.id}
-                      >
-                        <div
-                          id={entry.id}
-                          className="flex items-center gap-4 hover:bg-highlight px-4 py-2 m-[1px] rounded-lg cursor-pointer"
-                        >
-                          <Avatar className="hidden h-9 w-9 sm:flex">
-                            <AvatarImage
-                              src={
-                                entryContent.avatar
-                                  ? entryContent.avatar
-                                  : "/avatars/01.png"
-                              }
-                              alt="Avatar"
-                            />
-                            <AvatarFallback>
-                              <IconComponent className="size-5" />
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="grid gap-1">
-                            <p className="text-sm font-medium leading-none">
-                              {entryContent.title}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              {getFirstSentence(entryContent.description)}
-                            </p>
-                          </div>
-                          <div className="ml-auto font-sm">
-                            {entryContent.tags[0] ||
-                              entryContent.collectionType}
-                          </div>
-                        </div>
-                      </UpdateDialogOpener>
-                    );
-                  })}
-                </AccordionContent>
-              </AccordionItem>
-            );
-          }
-        })}
-      </Accordion>
-    </>
-  );
-}
+*/
