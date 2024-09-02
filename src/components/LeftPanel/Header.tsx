@@ -1,8 +1,5 @@
 import React from "react";
-//import NavBar from './NavBar';
-//import TopicList from './TopicList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-//import CollectionCard from './CollectionCard';
 import CollectionAccordion from "./CollectionAccordion";
 import ChatAccordion from "./ChatAccordion";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";

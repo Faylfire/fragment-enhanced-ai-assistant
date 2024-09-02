@@ -3,7 +3,7 @@ import React from "react";
 //import { ChatProvider } from './contexts/ChatContext';
 import LeftPanel from "@/components/LeftPanel/LeftPanel";
 import ChatArea from "@/components/ChatArea/ChatArea";
-import ChatArea2 from "@/components/ChatArea/ChatArea2";
+import ChatArea2 from "@/components/ChatArea/ChatArea";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -18,7 +18,7 @@ function App() {
       </ResizablePanel>
       <ResizableHandle className="" withHandle />
       <ResizablePanel defaultSize={70}>
-        <ChatArea2 />
+        <ChatArea />
       </ResizablePanel>
     </ResizablePanelGroup>
   );

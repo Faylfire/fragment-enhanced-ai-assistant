@@ -266,7 +266,7 @@ export default function CollectionAccordion() {
                       >
                         <div
                           id={entry.id}
-                          className="flex items-center gap-4 hover:bg-highlight px-4 py-2 m-[1px] rounded-lg"
+                          className="flex items-center gap-4 hover:bg-highlight px-4 py-2 m-[1px] rounded-lg cursor-pointer"
                         >
                           <Avatar className="hidden h-9 w-9 sm:flex">
                             <AvatarImage
