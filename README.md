@@ -82,6 +82,14 @@ Components Added:
 Accordion
 div contenteditable
 
+## How to run
+
+Running the following will start the application however functionality will be limited as the project currently requires a firebase real-time database (https://firebase.google.com/) and a local inference database (LMStudio - https://lmstudio.ai/docs/local-server) for full functionality.
+
+
+```npm run dev```
+
+
 ## Firebase API Reference
 
 https://firebase.google.com/docs/database/admin/retrieve-data
