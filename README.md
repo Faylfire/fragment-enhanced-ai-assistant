@@ -37,6 +37,7 @@ Functionality:
 
 Originally Planned File Structure (Shadcn component files not shown):
 
+```
 src/
 ├── components/
 │   ├── LeftPanel/
@@ -63,7 +64,7 @@ src/
 ├── App.js
 └── utils/
     └── helpers.js
-
+```
 
 Issues and Bugs:
 7/30/2024 - Using Tailwind "tw-" prefix introduces issues with shadcn, removal restores expected behavior
