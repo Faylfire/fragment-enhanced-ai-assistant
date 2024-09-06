@@ -23,13 +23,16 @@ Features:
 - Allow for selection of different AI API's currently only Lmstudio local is available
 - Allow for multiple projects with their own collections of entries and chats
 - Markdown chat display fields for better user experience and also better formatting of the prompt output
+- Allow for editing of past prompts on the chat interface
 - Fine Tuned Models
-- RAG implementation for enhanced AI responses
+- RAG implementation for enhanced AI responses (this would enable semantic search for relevant data and move away from automatic keyword detection)
+
 
 
 Functionality:
-- Rename Chat Tabs
-- Redesign Chat LeftPanel display
+- Allow Renaming of Chat Tabs
+- Redesign Chat LeftPanel item display 
+- Allow for deletion of Entries
 - Add Hoverable tips and snippets (requires more design)
 - Allow modification and saving of the system prompts for different aspects of the project
 - Add the ability to select enteries to Always be included in the prompts.
