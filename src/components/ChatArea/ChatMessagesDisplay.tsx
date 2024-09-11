@@ -3,7 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChatList, ChatMessage, ChatEntry } from "@/types/types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-//import { ExpandingTextarea } from "@/components/Custom/ExpandingTextarea";
 import { ExpandingContentEditable } from "@/components/Custom/ExpandingContentEditable";
 import { ArrowRight } from "lucide-react";
 import { lmClient } from "@/services/openConfig";

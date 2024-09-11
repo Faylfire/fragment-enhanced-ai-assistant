@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-//import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 interface ExpandingTextareaProps {
