@@ -38,13 +38,14 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
       `Sending Keywords for ${chat.id}: `,
       [...supportingEntryIds].length
     );
-    // Add chat submission logic here
+    //Enhanced Prompt using Chain of Though Reasoning
     const enhancedPrompt = enhancePrompt(
       inputMessage,
       supportingEntryIds,
       entries
     );
 
+    //System Prompt is enhanced with identified entries
     const sysPrompt = enhanceSystemPrompt(supportingEntryIds, entries);
 
     const userMessage = { role: "user", content: inputMessage };
@@ -182,6 +183,7 @@ export default function ChatMessagesDisplay({ initChat = [] }) {
   );
 }
 
+//Needs Update with Chain of Thought and Enhancement of Prompt
 function enhancePrompt(prompt, supportingIds, entries) {
   const augPrompt = prompt;
 
